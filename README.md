@@ -1,23 +1,21 @@
 Hunted!
 =======
+- Avoid and/or destroy your foes until they swarm and overwhelm you despite your immense dogfighting prowess.
+- Defend yourself using a grossly overpowered weapon that vaguely resembles a stream of urine.
+- Controls:
+	- **left,right,up,down arrows** to maneuver
+	- **space** to shoot
+	- **shift** to boost
 
 Why?
 ----
 - Because making a crappy game is as fun as playing a good one.
-- To try my hand at JS.
+- To try my hand at javascript.
 - To get some experience with git & github.
-- To fight a tendency to be overly precious and never release stuff.
-- For the sake of fun/useless code joy.
-- So that any JS savvy folks out there can laugh at what I am doing wrong and help straighten me out.
+- To fight my tendency to be overly precious and never release stuff.
+- So that any JS savvy folks out there can laugh at the way I am doing things and help me sharpen up these here knives!
 
 How?
 ----
-- Using Grant Skinner's Easel.js to ease me into JS with some handy AS-like objects; thanks Grant & Posse.
-- Using Underscore.js b/c it is very handy, and Backbone.js for its Event system; thanks J.Ashkenas.
-- Using jQuery.hotkeys to try and get something that resembles cross-platform kb input; thanks J.Resig & Tzury Bar Yochay.
-
-What?
------
-- A simple shootemup game where you avoid and/or destroy foes until they swarm and overwhelm you despite your dogfighting prowess.
-- Use the **left,right,up,down arrows** to fly, **space** to shoot, and **shift** to boost.
-- 
+- Using Grant Skinner's Easel.js to ease me into JS with some handy AS-like objects and a much needed display list for canvas!
+- Using Underscore.js b/c it is very handy, and Backbone.js for its Event system.

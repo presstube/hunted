@@ -31,7 +31,7 @@
 			}),
 
 			ship = new Ship({
-				name: "hero",
+				name: "herooooo",
 				controlsClass: ShipControlsKeyboard,
 				skinClass: ShipSkinGeneric,
 				drag: 0.95,
