@@ -13,8 +13,6 @@
 			
 			update: function() {
 
-				console.log("LH: ", keyboardInput);
-
 				if (keyboardInput.upHeld && !keyboardInput.downHeld) {
 					this.throttle = 1;
 				} else if (keyboardInput.downHeld && !keyboardInput.upHeld) {

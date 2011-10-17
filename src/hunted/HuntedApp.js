@@ -155,11 +155,6 @@
 					$(document).unbind('keydown', onRestartSpacePressed);
 				}
 			);
-			// keyboardInput.bind(KeyboardInput.KEYCODE_SPACE, function onRestartSpacePressed() {
-			// 		start();
-			// 		keyboardInput.unbind(KeyboardInput.KEYCODE_SPACE, onRestartSpacePressed);
-			// 	}
-			// );
 		};
 	
 		var resize = function() {
@@ -170,7 +165,7 @@
 			stage.update();
 		};
 
-		keyboardInput.bind(KeyboardInput.KEYCODE_p, function() {
+		$(document).bind('keydown', 'p', function() {
 			if (paused) {
 				unPause();
 			} else {
@@ -178,14 +173,14 @@
 			}
 
 			function pause() {
-				keyboardInput.bind(KeyboardInput.KEYCODE_SPACE, onPauseSpacePressed);
+				$(document).bind('keydown', 'space', onPauseSpacePressed);
 				console.log("PAUSE");
 				that.tick = undefined;
 				paused = true;
 			}
 
 			function unPause() {
-				keyboardInput.unbind(KeyboardInput.KEYCODE_SPACE, onPauseSpacePressed);
+				$(document).unbind('keydown', onPauseSpacePressed);
 				console.log("UNPAUSE");
 				engageTick();
 				paused = false;
