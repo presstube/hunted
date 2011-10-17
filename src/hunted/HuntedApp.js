@@ -149,11 +149,17 @@
 			// console.log("<!!!!!!!!!!!!!!!>");
 			// console.log("<!!! YOU DIE !!!>");
 			// console.log("<!!!!!!!!!!!!!!!>");
-			keyboardInput.bind(KeyboardInput.KEYCODE_SPACE, function onRestartSpacePressed() {
+			$(document).bind('keydown', 'space',function onRestartSpacePressed() {
+					console.log("SPACE");
 					start();
-					keyboardInput.unbind(KeyboardInput.KEYCODE_SPACE, onRestartSpacePressed);
+					$(document).unbind('keydown', onRestartSpacePressed);
 				}
 			);
+			// keyboardInput.bind(KeyboardInput.KEYCODE_SPACE, function onRestartSpacePressed() {
+			// 		start();
+			// 		keyboardInput.unbind(KeyboardInput.KEYCODE_SPACE, onRestartSpacePressed);
+			// 	}
+			// );
 		};
 	
 		var resize = function() {
