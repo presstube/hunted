@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+	<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+	<title>HUNTED!</title> 
+	 
+	<link href="styles.css" rel="stylesheet" type="text/css" /> 
+
+	<!-- Import Underscore & Backbone --> 
+	<script src="src/documentcloud/underscore.js"></script> 
+	<script src="src/documentcloud/backbone.js"></script> 
+	 
+	<!-- Import EaselJS Framework --> 
+	<script src="src/easeljs/utils/UID.js"></script> 
+	<script src="src/easeljs/display/SpriteSheet.js"></script> 
+	<script src="src/easeljs/geom/Matrix2D.js"></script> 
+	<script src="src/easeljs/geom/Point.js"></script> 
+	<script src="src/easeljs/events/MouseEvent.js"></script> 
+	<script src="src/easeljs/display/DisplayObject.js"></script> 
+	<script src="src/easeljs/display/BitmapSequence.js"></script> 
+	<script src="src/easeljs/display/Container.js"></script> 
+	<script src="src/easeljs/display/Graphics.js"></script>
+	<script src="src/easeljs/display/Shape.js"></script> 
+	<script src="src/easeljs/display/Stage.js"></script> 
+	<script src="src/easeljs/display/Text.js"></script> 
+	<script src="src/easeljs/utils/Ticker.js"></script>
+
+	<!-- Chunkulus script Ahoy! --> 
+	<script src="src/hunted/HuntedApp.js"></script> 
+	<script src="src/hunted/stages/ScaleStage.js"></script> 
+	<script src="src/hunted/stages/TrackingStage.js"></script> 
+	<script src="src/hunted/scrollers/ParallaxScroller.js"></script> 
+	<script src="src/hunted/scrollers/ItemScroller.js"></script> 
+	<script src="src/hunted/ships/ShipControlsKeyboard.js"></script> 
+	<script src="src/hunted/ships/ExhaustPipe.js"></script> 
+	<script src="src/hunted/ships/ExhaustParticle.js"></script> 
+	<script src="src/hunted/ships/ShipEngineGeneric.js"></script> 
+	<script src="src/hunted/ships/Ship.js"></script> 
+	<script src="src/hunted/ships/ShipSkinGeneric.js"></script> 
+	<script src="src/hunted/ships/ShipSkinGoon.js"></script> 
+	<script src="src/hunted/ships/ShipControlsAIWander.js"></script> 
+	<script src="src/hunted/ships/ShipControlsAIChase.js"></script> 
+	<script src="src/hunted/ships/ShipControlsAIAvoid.js"></script> 
+	<script src="src/hunted/ships/Launcher.js"></script> 
+	<script src="src/hunted/ships/LauncherProjectile.js"></script> 
+	<script src="src/hunted/KeyboardInput.js"></script> 
+	<script src="src/hunted/PTUtils.js"></script> 
+
+	</head> 
+		
+	<body onload="app = new HuntedApp;"> 
+		<canvas id="canvas"></canvas>
+	</body> 
+</html> 
