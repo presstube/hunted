@@ -67,9 +67,9 @@
 				modif += "meta+";
 			}
 
-			if ( event.shiftKey && special !== "shift" ) {
-				modif += "shift+";
-			}
+			// if ( event.shiftKey && special !== "shift" ) {
+			// 	modif += "shift+";
+			// }
 
 			if ( special ) {
 				possible[ modif + special ] = true;
