@@ -13,9 +13,9 @@ Why?
 - To try my hand at javascript.
 - To get some experience with git & github.
 - To fight my tendency to be overly precious and never release stuff.
-- So that any JS savvy folks out there can laugh at the way I am doing things and help me sharpen up these here knives!
 
-How?
-----
-- Using Grant Skinner's Easel.js to ease me into JS with some handy AS-like objects and a much needed display list for canvas!
-- Using Underscore.js b/c it is very handy, and Backbone.js for its Event system.
+Dependencies
+------------
+- Grant Skinner's Easel.js to ease me into JS with some handy AS-like objects and a much needed display list for canvas.
+- Underscore.js b/c it is handy, and Backbone.js for its Event system.
+- jQuery hotkeys plugin (slightly modified to fit my purposes) for reliable keyboard input.

@@ -66,9 +66,10 @@
 			if ( event.metaKey && !event.ctrlKey && special !== "meta" ) {
 				modif += "meta+";
 			}
-
+			
+			// commented this out b/c the shift key was blocking other keys
 			// if ( event.shiftKey && special !== "shift" ) {
-			// 	modif += "shift+";
+			//	modif += "shift+";
 			// }
 
 			if ( special ) {
