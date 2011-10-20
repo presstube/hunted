@@ -4,8 +4,6 @@
 		throw "PTUTils is a static class and not meant to be instantiated";
 	};
 
-	PTUtils.prototype = new Object();
-
 	PTUtils.makeTriangle = function(color, width, height) {
 		var triangle = new Shape();
 		triangle.graphics.beginFill(color).

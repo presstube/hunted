@@ -41,29 +41,35 @@
 					boostFuel++;
 				}
 			}
-			this.applyForce();
-			this.applyDrag();
+			applyForce();
+			applyDrag();
 			tickCount++;
+			
 		};
+		
+		function applyForce() {
+			_p.ship.x += vX;
+			_p.ship.y += vY;
+		}
+		
+		function applyDrag() {
+			vX *= _p.drag;
+			vY *= _p.drag;
+		}
 		
 		this.addForce = function(force) {
 			vX += force.x;
 			vY += force.y;
 		};
 		
-		this.applyForce = function() {
-			_p.ship.x += vX;
-			_p.ship.y += vY;
-		};
-		
-		this.applyDrag = function() {
-			vX *= _p.drag;
-			vY *= _p.drag;
-		};
-		
 		this.getVelocity = function() {
 			return new Point(vX, vY);
 		};
+
+		// engage/disengage engine
+		// engage/disengage breaks
+		// engage/disengage steering
+		// engage/disengage boost
 		
 	};
 

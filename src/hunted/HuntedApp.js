@@ -8,7 +8,6 @@
 			wrapRadius = 2000,
 			chasers = [],
 			projectiles = [],
-			keyboardInput = new KeyboardInput(),
 			canvas = document.getElementById("canvas"),
 			stage = new Stage(canvas),
 			fpsLabel = PTUtils.makeFPSLabel(),
@@ -31,7 +30,7 @@
 			}),
 
 			ship = new Ship({
-				name: "herooooo",
+				name: "hero",
 				controlsClass: ShipControlsKeyboard,
 				skinClass: ShipSkinGeneric,
 				drag: 0.95,
@@ -41,12 +40,11 @@
 				boostRegenerateFrequency: 10,
 				steeringResponse: 2,
 				steeringLimit: 10,
-				launcherSpread: 10,
+				launcherSpread: 5,
 				projectileThrust: 40,
-				shotsPerLaunch: 10,
+				shotsPerLaunch: 1,
 				projectileLife: 20,
 				projectileLimit: 200,
-				keyboardInput: keyboardInput,
 				projectiles: projectiles
 			});
 
@@ -139,7 +137,7 @@
 		var start = function() {
 			_.each(chasers, function(chaser){ chaser.kill(); });
 			chasers = [];
-			// numChasersToSpawn = 1;
+			// numChasersToSpawn = 1; // would kick you back to level 1
 			if (numChasersToSpawn > 1) numChasersToSpawn--;
 			trackingStage.addChild(ship);
 			spawnChasers();
@@ -150,7 +148,6 @@
 			// console.log("<!!! YOU DIE !!!>");
 			// console.log("<!!!!!!!!!!!!!!!>");
 			$(document).bind('keydown', 'space',function onRestartSpacePressed() {
-					console.log("SPACE");
 					start();
 					$(document).unbind('keydown', onRestartSpacePressed);
 				}
