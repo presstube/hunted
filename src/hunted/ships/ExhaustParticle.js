@@ -24,7 +24,7 @@
 		this.rotation = ship.rotation;
 		
 		this.tick = function() {
-			this.alpha -= .05;
+			this.alpha -= 0.05;
 			if (this.alpha < 0) {
 				this.parent.removeChild(this);
 				this.tick = null;

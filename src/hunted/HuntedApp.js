@@ -46,6 +46,17 @@
 				projectileLife: 20,
 				projectileLimit: 200,
 				projectiles: projectiles
+			}),
+
+			avoider = new Ship({
+				name: "avoider",
+				controlsClass: ShipControlsAIAvoid,
+				target: ship
+			}),
+
+			wanderer = new Ship({
+				name: "wanderer",
+				controlsClass: ShipControlsAIWander
 			});
 
 		var spawnChasers = function() {
@@ -199,6 +210,8 @@
 
 		trackingStage.addChild(itemScroller);
 		trackingStage.addChild(ship);
+		trackingStage.addChild(avoider);
+		trackingStage.addChild(wanderer);
 		trackingStage.setTrackingTarget(ship);
 		
 		Ticker.setFPS(30);

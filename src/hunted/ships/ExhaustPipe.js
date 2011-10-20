@@ -16,7 +16,6 @@
 			index = 0,
 			skin = PTUtils.makeTriangle('#fff', 6, 6);
 		
-	//	skin.rotation = 180;
 		this.addChild(skin);
 		
 		this.engage = function() {

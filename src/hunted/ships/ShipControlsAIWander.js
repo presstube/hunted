@@ -2,20 +2,29 @@
 	
 	var ShipControlsAIWander = function(props) {
 		
-		return {
-			throttle: 0,
-			steering: 0,
-			boost: false,
-			
-			update: function() {
+		var that = this;
+
+		this.throttle = 0;
+		this.steering = 0;
+
+		this.update = function() {
+
+			setSteering();
+			setThrottle();
+
+			function setSteering() {
 				if (Math.random() > 0.9) {
-					this.throttle = this.throttle === 1 ? 0 : 1;
+					that.steering = -1 + (Math.random() * 2);
 				}
+			}
+
+			function setThrottle() {
 				if (Math.random() > 0.9) {
-					this.steering = -1 + (Math.random() * 2);
+					that.throttle = that.throttle === 1 ? 0 : 1;
 				}
 			}
 		};
+
 	};
 		
 	window.ShipControlsAIWander = ShipControlsAIWander;

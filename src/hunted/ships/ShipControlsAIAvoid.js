@@ -2,19 +2,23 @@
 	
 	var ShipControlsAIAvoid = function(props) {
 		
-		var ship = props.ship,
+		var that = this,
+			ship = props.ship,
 			target = props.target,
 			shipPos = new Point(),
 			targetPos = new Point(),
 			angleToTarget = 0,
 			diff = 0;
-		
-		return {
-			throttle: 1,
-			steering: 0,
-			boost: false,
 
-			update : function() {
+		this.throttle = 0;
+		this.steering = 0;
+
+		this.update = function() {
+
+			setSteering();
+			setThrottle();
+
+			function setSteering() {
 				shipPos = new Point(ship.x, ship.y);
 				shipRot = PTUtils.getAdjustedRotation(ship.rotation);
 				targetPos = new Point(target.x, target.y);
@@ -28,19 +32,22 @@
 				}
 				
 				if (diff <= -5) {
-					this.steering = 1;
+					that.steering = 1;
 				} else if (diff >= 5) {
-					this.steering = -1;
+					that.steering = -1;
 				} else {
-					this.steering = 0;
-				}
-				
-				if (Math.random() > 0.99 && this.throttle === 1) {
-					this.throttle = 0;
-				} else if (Math.random() > 0.5 && this.throttle === 0) {
-					this.throttle = 1;
+					that.steering = 0;
 				}
 			}
+
+			function setThrottle() {
+				if (Math.random() > 0.99 && that.throttle === 1) {
+					that.throttle = 0;
+				} else if (Math.random() > 0.5 && that.throttle === 0) {
+					that.throttle = 1;
+				}
+			}
+			
 		};
 	};
 
