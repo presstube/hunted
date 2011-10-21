@@ -59,16 +59,67 @@
 				controlsClass: ShipControlsAIWander
 			});
 
-		var spawnChasers = function() {
+		stage.addChild(fpsLabel, levelText, scaleStage);
+
+		levelText.x = 10; levelText.y = 40;
+
+		scaleStage.addChild(trackingStage);
+		scaleStage.addChildAt(parallaxScroller, 0);
+		scaleStage.setTargetScale(0.75);
+
+		trackingStage.addChild(itemScroller);
+		trackingStage.addChild(ship);
+		trackingStage.addChild(avoider);
+		trackingStage.addChild(wanderer);
+		trackingStage.setTrackingTarget(ship);
+		
+		setupTicker();
+		rigPauseKey();
+		resize();
+		start();
+
+		function setupTicker() {
+			Ticker.setFPS(30);
+			Ticker.addListener(this);
+			engageTick();
+		}
+
+		function engageTick() {
+			that.tick = function(){
+				checkForHits();
+				stage.update();
+			};
+		}
+
+		function disengageTick() { 
+			that.tick = undefined;
+		}
+
+		function start() {
+			_.each(chasers, function(chaser){ chaser.kill(); });
+			chasers = [];
+			// numChasersToSpawn = 1; // would kick you back to level 1
+			if (numChasersToSpawn > 1) numChasersToSpawn--;
+			trackingStage.addChild(ship);
+			spawnChasers();
+		}
+
+		function gameOver() {
+			$(document).bind('keydown', 'space',function onRestartSpacePressed() {
+					start();
+					$(document).unbind('keydown', onRestartSpacePressed);
+				}
+			);
+		}
+
+		function spawnChasers() {
 			//LEVEL UP??
-			for (var i = 0; i < numChasersToSpawn; i++) {
-				spawnChaser();
-			}
+			_.times(numChasersToSpawn, spawnChaser);
 			levelText.text = "LEVEL " + numChasersToSpawn;
 			numChasersToSpawn++;
-		};
+		}
 
-		var spawnChaser = function() {
+		function spawnChaser() {
 			var chaser = new Ship({
 				name: "chaser: " + Math.random(),
 				controlsClass: ShipControlsAIChase,
@@ -84,9 +135,9 @@
 			chaser.y = ship.y + spawnPoint.y;
 			chasers.push(chaser);
 			trackingStage.addChild(chaser);
-		};
+		}
 
-		var checkForHits = function(){
+		function checkForHits(){
 
 			if (chasers.length > 0) {
 
@@ -132,99 +183,49 @@
 				});
 			}
 
-		};
+		}
 
-		var engageTick = function() {
-			that.tick = function(){
-				checkForHits();
-				stage.update();
-			};
-		};
-
-		var disengageTick = function() { 
-			that.tick = undefined;
-		};
-		
-		var start = function() {
-			_.each(chasers, function(chaser){ chaser.kill(); });
-			chasers = [];
-			// numChasersToSpawn = 1; // would kick you back to level 1
-			if (numChasersToSpawn > 1) numChasersToSpawn--;
-			trackingStage.addChild(ship);
-			spawnChasers();
-		};
-		
-		var gameOver = function() {
-			// console.log("<!!!!!!!!!!!!!!!>");
-			// console.log("<!!! YOU DIE !!!>");
-			// console.log("<!!!!!!!!!!!!!!!>");
-			$(document).bind('keydown', 'space',function onRestartSpacePressed() {
-					start();
-					$(document).unbind('keydown', onRestartSpacePressed);
+		function rigPauseKey() {
+			$(document).bind('keydown', 'p', function() {
+				if (paused) {
+					unPause();
+				} else {
+					pause();
 				}
-			);
-		};
+
+				function pause() {
+					$(document).bind('keydown', 'space', onPauseSpacePressed);
+					console.log("PAUSE");
+					that.tick = undefined;
+					paused = true;
+				}
+
+				function unPause() {
+					$(document).unbind('keydown', onPauseSpacePressed);
+					console.log("UNPAUSE");
+					engageTick();
+					paused = false;
+				}
+
+				function onPauseSpacePressed() {
+					console.log("PAUSE SPACE");
+					unPause();
+				}
+			});
+		}
+
 	
-		var resize = function() {
+		function resize() {
 			canvas.width = window.innerWidth;
 			canvas.height = window.innerHeight;
 			scaleStage.x = canvas.width / 2;
 			scaleStage.y = canvas.height / 2; 
 			stage.update();
-		};
-
-		$(document).bind('keydown', 'p', function() {
-			if (paused) {
-				unPause();
-			} else {
-				pause();
-			}
-
-			function pause() {
-				$(document).bind('keydown', 'space', onPauseSpacePressed);
-				console.log("PAUSE");
-				that.tick = undefined;
-				paused = true;
-			}
-
-			function unPause() {
-				$(document).unbind('keydown', onPauseSpacePressed);
-				console.log("UNPAUSE");
-				engageTick();
-				paused = false;
-			}
-
-			function onPauseSpacePressed() {
-				console.log("PAUSE SPACE");
-				unPause();
-			}
-		});
-
-		stage.addChild(fpsLabel, levelText, scaleStage);
-
-		levelText.x = 10; levelText.y = 40;
-
-		scaleStage.addChild(trackingStage);
-		scaleStage.addChildAt(parallaxScroller, 0);
-		scaleStage.setTargetScale(0.75);
-
-		trackingStage.addChild(itemScroller);
-		trackingStage.addChild(ship);
-		trackingStage.addChild(avoider);
-		trackingStage.addChild(wanderer);
-		trackingStage.setTrackingTarget(ship);
-		
-		Ticker.setFPS(30);
-		Ticker.addListener(this);
-
-		engageTick();
-		
-		resize();
-
-		start();
+		}
 
 		window.onresize = resize;
 		window.sp = ship.props;
+
 	};
 
 	window.HuntedApp = HuntedApp;

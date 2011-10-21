@@ -59,7 +59,7 @@
 		
 		this.tick = function() {
 			globalScaleStageCenter = scaleStage.localToGlobal(0, 0);
-			direction = PTUtils.angleRadians(trackingStage.getAmountToMove(), new Point );
+			direction = PTUtils.angleRadians(trackingStage.getAmountToMove(), new Point() );
 		};
 	};
 
