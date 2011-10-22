@@ -80,7 +80,7 @@
 
 		function setupTicker() {
 			Ticker.setFPS(30);
-			Ticker.addListener(this);
+			Ticker.addListener(that);
 			engageTick();
 		}
 
