@@ -6,11 +6,13 @@
 
 	p.initialize = function(props) {
 		if (props) {
+
 			this.Container_initialize();
 			
 			this.props = props;
 			this.props.ship = this;
 			
+			this.force = new Force(this);
 			this.makeControls();
 			this.makeEngine();
 			this.makeSkin();
@@ -20,6 +22,7 @@
 	p.tick = function() {
 		this.controls.update();
 		this.engine.update();
+		this.force.update();
 		this.skin.update();
 	};
 

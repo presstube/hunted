@@ -46,18 +46,18 @@
 				projectileLife: 20,
 				projectileLimit: 200,
 				projectiles: projectiles
-			}),
-
-			avoider = new Ship({
-				name: "avoider",
-				controlsClass: ShipControlsAIAvoid,
-				target: ship
-			}),
-
-			wanderer = new Ship({
-				name: "wanderer",
-				controlsClass: ShipControlsAIWander
 			});
+
+			// avoider = new Ship({
+			// 	name: "avoider",
+			// 	controlsClass: ShipControlsAIAvoid,
+			// 	target: ship
+			// }),
+
+			// wanderer = new Ship({
+			// 	name: "wanderer",
+			// 	controlsClass: ShipControlsAIWander
+			// });
 
 		stage.addChild(fpsLabel, levelText, scaleStage);
 
@@ -69,9 +69,10 @@
 
 		trackingStage.addChild(itemScroller);
 		trackingStage.addChild(ship);
-		trackingStage.addChild(avoider);
-		trackingStage.addChild(wanderer);
 		trackingStage.setTrackingTarget(ship);
+
+		// trackingStage.addChild(avoider);
+		// trackingStage.addChild(wanderer);
 		
 		setupTicker();
 		rigPauseKey();
@@ -98,7 +99,7 @@
 		function start() {
 			_.each(chasers, function(chaser){ chaser.kill(); });
 			chasers = [];
-			// numChasersToSpawn = 1; // would kick you back to level 1
+			numChasersToSpawn = 1; // would kick you back to level 1
 			if (numChasersToSpawn > 1) numChasersToSpawn--;
 			trackingStage.addChild(ship);
 			spawnChasers();
@@ -213,7 +214,6 @@
 				}
 			});
 		}
-
 	
 		function resize() {
 			canvas.width = window.innerWidth;
