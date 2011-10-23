@@ -13,12 +13,14 @@
 			fpsLabel = PTUtils.makeFPSLabel(),
 			scaleStage = new ScaleStage(),
 			trackingStage = new TrackingStage(),
+			nav = new Nav(scaleStage),
 			levelText = new Text("-- fps","bold 20px Arial","#FFF"),
 
 			parallaxScroller = new ParallaxScroller({
 				app: this,
 				trackingStage : trackingStage,
 				wrapRadius: wrapRadius,
+				nav: nav,
 				numItems: 50
 			}),
 
@@ -46,7 +48,7 @@
 				projectileLife: 20,
 				projectileLimit: 200,
 				projectiles: projectiles
-			});
+			}),
 
 			// avoider = new Ship({
 			// 	name: "avoider",
@@ -54,12 +56,16 @@
 			// 	target: ship
 			// }),
 
-			// wanderer = new Ship({
-			// 	name: "wanderer",
-			// 	controlsClass: ShipControlsAIWander
-			// });
+			wanderer = new Ship({
+				name: "wanderer",
+				controlsClass: ShipControlsAIWander
+			});
 
 		stage.addChild(fpsLabel, levelText, scaleStage);
+
+		var wandererSpawnPoint = PTUtils.polarDegrees(4000, Math.random()*360);
+		wanderer.x = wandererSpawnPoint.x;
+		wanderer.y = wandererSpawnPoint.y;
 
 		levelText.x = 10; levelText.y = 40;
 
@@ -71,8 +77,13 @@
 		trackingStage.addChild(ship);
 		trackingStage.setTrackingTarget(ship);
 
+
 		// trackingStage.addChild(avoider);
-		// trackingStage.addChild(wanderer);
+		trackingStage.addChild(wanderer);
+		
+		// parallaxScroller.props.target = wanderer;
+		// nav.setTarget(wanderer);
+		nav.setTargetGroup(chasers);
 		
 		setupTicker();
 		rigPauseKey();
@@ -97,9 +108,12 @@
 		}
 
 		function start() {
-			_.each(chasers, function(chaser){ chaser.kill(); });
-			chasers = [];
-			numChasersToSpawn = 1; // would kick you back to level 1
+			// _.each(chasers, function(chaser){ chaser.kill(); });
+			// chasers = [];
+			while (chasers.length > 0) {
+				chasers.pop().kill();
+			}
+			// numChasersToSpawn = 1; // would kick you back to level 1
 			if (numChasersToSpawn > 1) numChasersToSpawn--;
 			trackingStage.addChild(ship);
 			spawnChasers();

@@ -53,20 +53,14 @@
 				return dp;
 			}
 			
-			// return makeShipProjectile();
-			return makeDumbProjectile();
+			return makeShipProjectile();
+			// return makeDumbProjectile();
 			
 		};
 
 		function killProjectile(projectile) {
 			_p.ship.parent.removeChild(projectile);
-			var projectilesLength = _p.projectiles.length;
-			for(var i = 0; i < projectilesLength; i++) { 
-				if (projectile === _p.projectiles[i]) {
-					_p.projectiles.splice(i, 1);
-					break;
-				}
-			}
+			_p.projectiles.splice(_.indexOf(_p.projectiles, projectile), 1);
 			console.log("killing projectile");
 		}
 

@@ -15,30 +15,38 @@
 		// defaults
 		_p.numItems = _p.numItems || 30;
 		_p.wrapRadius = _p.wrapRadius || 300;
-			
-		
-		function populate(spread) {
+
+		function populate() {
 			
 			var makeItem = function(i) {
 
 				var minScale = 0.5, 
 					maxScale = 3,
-					item = PTUtils.makeTriangle('#666', 100, 100);
+					item = new Container();
+					// item = PTUtils.makeTriangle('#666', 100, 100);
 				
 				item.multiplier = i / _p.numItems;
 
+				var bigTriangle = PTUtils.makeTriangle('#666', 100, 100);
+				var smallTriangle = PTUtils.makeTriangle('#777', 20, 20);
+				bigTriangle.y = 100;
+				smallTriangle.y = 20;
+				item.addChild(bigTriangle);
+				item.addChild(smallTriangle);
 				var thisScale = ((maxScale - minScale) * item.multiplier) + minScale;
-				var	spawnPoint = PTUtils.polarDegrees(
-						Math.random() * _p.wrapRadius, 
-						Math.random()*360);
-
+				var	spawnPoint = PTUtils.polarDegrees(Math.random() * _p.wrapRadius, Math.random()*360);
 				item.alpha = 0.5 * item.multiplier;
 				item.rotation = Math.random()*360;
 				item.x = spawnPoint.x; item.y = spawnPoint.y;
 				item.scaleX = thisScale; item.scaleY = thisScale;
+				item.i = i;
+				_p.nav.registerNavItem(item);
 				that.addChild(item);
 
+
+
 				item.tick = function() {
+
 					this.x += _p.trackingStage.getAmountToMove().x * this.multiplier;
 					this.y += _p.trackingStage.getAmountToMove().y * this.multiplier;
 					var distanceFromCenter = PTUtils.distance(new Point(this.x, this.y), new Point());
@@ -48,6 +56,7 @@
 						this.x = respawnPoint.x;
 						this.y = respawnPoint.y;
 					}
+					
 				};
 			};
 
@@ -55,7 +64,7 @@
 
 		}
 		
-		populate(300);
+		populate();
 		
 		this.tick = function() {
 			direction = PTUtils.angleRadians(_p.trackingStage.getAmountToMove(), new Point());
