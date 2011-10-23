@@ -27,7 +27,7 @@
 				projectile.addForce(PTUtils.polarDegrees(adjProjThrust, projectile.rotation));
 				skin.y = +5;
 				_p.projectiles.push(projectile);
-				_.delay(killProjectile, 5000, projectile);
+				_.delay(killProjectile, 500, projectile);
 			}
 		};
 
