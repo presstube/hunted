@@ -1,11 +1,12 @@
 (function(window){
 	
-	var Force = function(target) {
+	var ForceAbility = function(target) {
+
+		target.isForceable = true;
 
 		var force = new Point();
 
 		var _p = target.props;
-		_p.drag = _p.drag ? _p.drag : 0.95;
 
 		function applyForce() {
 			target.x += force.x;
@@ -13,8 +14,8 @@
 		}
 		
 		function applyDrag() {
-			force.x *= _p.drag;
-			force.y *= _p.drag;
+			force.x *= Global.drag;
+			force.y *=Global.drag;
 		}
 
 		this.update = function() {
@@ -33,6 +34,6 @@
 
 	};
 
-	window.Force = Force;
+	window.ForceAbility = ForceAbility;
 
 }(window));

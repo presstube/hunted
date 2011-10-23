@@ -12,7 +12,7 @@
 			this.props = props;
 			this.props.ship = this;
 			
-			this.force = new Force(this);
+			this.forceAbility = new ForceAbility(this);
 			this.makeControls();
 			this.makeEngine();
 			this.makeSkin();
@@ -22,7 +22,7 @@
 	p.tick = function() {
 		this.controls.update();
 		this.engine.update();
-		this.force.update();
+		this.forceAbility.update();
 		this.skin.update();
 	};
 
