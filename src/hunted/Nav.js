@@ -78,10 +78,10 @@
 
 			if (navItems.length > 0) rotateNavItems();
 
-			console.log("targetGroup: ", targetGroup);
+			// console.log("targetGroup: ", targetGroup);
 
 			if (targetGroup.length > 0) {
-				console.log("tttt: " + targetGroup.length);
+				// console.log("tttt: " + targetGroup.length);
 				targetClosest();
 			}
 		};

@@ -46,7 +46,8 @@
 				projectileThrust: 40,
 				shotsPerLaunch: 1,
 				projectileLife: 20,
-				projectileLimit: 200,
+				projectileLimit: 10,
+				targetFunc: nav.getTarget,
 				projectiles: projectiles
 			}),
 
@@ -182,12 +183,23 @@
 							var localHitPoint = projectile.localToLocal(0, 0, chaser); 
 							var hit = chaser.hitTest(localHitPoint.x, localHitPoint.y);
 							if (hit) {
+
+								var k;
+
+								trackingStage.removeChild(projectile);
+								for (k = 0; k < projectiles.length; k++) {
+									if (projectile === projectiles[k]) {
+										projectiles.splice(k, 1);
+									}
+								}
+
 								trackingStage.removeChild(chaser);
-								for (var k = 0; k < chasers.length; k++) {
+								for (k = 0; k < chasers.length; k++) {
 									if (chaser === chasers[k]) {
 										chasers.splice(k, 1);
 									}
 								}
+
 								if (chasers.length === 0) {
 									spawnChasers();
 								}
