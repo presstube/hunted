@@ -1,7 +1,7 @@
 (function(window){
 	
-	var Launcher = function(props) { this.initialize(props); };
-	var p = Launcher.prototype = new Container();
+	var LauncherHeatSeeker = function(props) { this.initialize(props); };
+	var p = LauncherHeatSeeker.prototype = new Container();
 	p.Container_initialize = p.initialize;
 
 	p.initialize = function(props) {
@@ -27,7 +27,7 @@
 				projectile.addForce(PTUtils.polarDegrees(adjProjThrust, projectile.rotation));
 				skin.y = +5;
 				_p.projectiles.push(projectile);
-				_.delay(killProjectile, 500, projectile);
+				_.delay(killProjectile, 5000000, projectile);
 			}
 		};
 
@@ -56,8 +56,8 @@
 				return dp;
 			}
 			
-			// return makeShipProjectile();
-			return makeDumbProjectile();
+			return makeShipProjectile();
+			// return makeDumbProjectile();
 			
 		};
 
@@ -73,6 +73,6 @@
 		};
 	};
 
-	window.Launcher = Launcher;
+	window.LauncherHeatSeeker = LauncherHeatSeeker;
 
 }(window));
