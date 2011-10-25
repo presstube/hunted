@@ -1,17 +1,15 @@
-Hunted!
-=======
+Hunted
+======
 - Avoid and/or destroy your foes until they swarm and overwhelm you despite your immense dogfighting prowess.
 - Controls:
 	- **left,right,up,down** arrows to maneuver
-	- **space** to fire
+	- **space** to fire pee sword
+	- **s** to fire seeker
 	- **shift** to boost
 
 Why?
 ----
 - Because making a crappy game is as fun as playing a good one.
-- To try my hand at javascript.
-- To get some experience with git & github.
-- To fight my tendency to be overly precious and never release stuff.
 
 Dependencies
 ------------
