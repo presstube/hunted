@@ -73,7 +73,7 @@
 
 		scaleStage.addChild(trackingStage);
 		scaleStage.addChildAt(parallaxScroller, 0);
-		scaleStage.setTargetScale(1.0);
+		scaleStage.setScaleMultiplier(0);
 
 		trackingStage.addChild(itemScroller);
 		trackingStage.addChild(ship);

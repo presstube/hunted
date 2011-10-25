@@ -8,23 +8,50 @@
 		
 		this.Container_initialize();
 		
-		var targetScale = 1;
+		var that = this,
+			targetScale = 1,
+			maxScale = 1,
+			minScale = 0.1,
+			range = maxScale - minScale;
+
+			setRange();
+
 		
-		this.setTargetScale = function(scale) {
+		function setTargetScale(scale) {
 			if (scale === null) {
 				targetScale = 1;
-				this.tick = null;
+				that.tick = null;
 			} else { 
 				targetScale = scale;
-				this.tick = function() {
+				that.tick = function() {
 					this.scaleX += (targetScale - this.scaleX) / 2;
 					this.scaleY += (targetScale - this.scaleY) / 2;
 				};
 			}
+		}
+
+		this.setScaleMultiplier = function(multiplier) {
+			setTargetScale(minScale + (range * multiplier));
 		};
+
+		this.setMaxScale = function(max) {
+			maxScale = max;
+			setRange(); 
+		};
+		
+		this.setMinScale = function(min) {
+			minScale = min;
+			setRange(); 
+		};
+
+		function setRange() {
+			range = maxScale - minScale;
+		}
 		
 		this.getTargetScale = function() { return targetScale; };
 	};
+
+
 
 	p.toString = function() {
 		return "[ScaleStage (name="+  this.name +")]";
