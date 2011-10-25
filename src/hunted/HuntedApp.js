@@ -46,8 +46,9 @@
 				projectileThrust: 40,
 				shotsPerLaunch: 1,
 				projectileLife: 20,
-				projectileLimit: 50,
+				projectileLimit: 20,
 				targetFunc: nav.getTarget,
+				trackingStage: trackingStage,
 				projectiles: projectiles
 			}),
 
@@ -72,7 +73,7 @@
 
 		scaleStage.addChild(trackingStage);
 		scaleStage.addChildAt(parallaxScroller, 0);
-		scaleStage.setTargetScale(0.5);
+		scaleStage.setTargetScale(1.0);
 
 		trackingStage.addChild(itemScroller);
 		trackingStage.addChild(ship);

@@ -21,7 +21,7 @@
 				projectile.rotation = _p.ship.rotation + this.rotation;
 				projectile.x = launchPos.x;
 				projectile.y = launchPos.y;
-				_p.ship.parent.addChildAt(projectile, _p.ship.parent.getChildIndex(_p.ship));
+				_p.trackingStage.addChildAt(projectile, _p.trackingStage.getChildIndex(_p.ship));
 				projectile.addForce(_p.ship.getForce());
 				var adjProjThrust = _p.projectileThrust - (Math.random()*(_p.projectileThrust/4));
 				projectile.addForce(PTUtils.polarDegrees(adjProjThrust, projectile.rotation));
@@ -62,7 +62,7 @@
 		};
 
 		function killProjectile(projectile) {
-			_p.ship.parent.removeChild(projectile);
+			_p.trackingStage.removeChild(projectile);
 			_p.projectiles.splice(_.indexOf(_p.projectiles, projectile), 1);
 			console.log("killing projectile");
 		}
