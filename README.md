@@ -1,10 +1,9 @@
 Hunted!
 =======
 - Avoid and/or destroy your foes until they swarm and overwhelm you despite your immense dogfighting prowess.
-- Defend yourself with a weapon that vaguely resembles a stream of urine.
 - Controls:
-	- **left,right,up,down arrows** to maneuver
-	- **space** to shoot/pee
+	- **left,right,up,down** arrows to maneuver
+	- **space** to fire
 	- **shift** to boost
 
 Why?
