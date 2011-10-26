@@ -6,7 +6,7 @@
 			gameState = "GAME_OVER",
 			numChasersToSpawn = 1,
 			paused = false,
-			wrapRadius = 2000,
+			wrapRadius = 4000,
 			chasers = [],
 			projectiles = [],
 			canvas = document.getElementById("canvas"),
