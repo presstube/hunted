@@ -11,8 +11,9 @@
 		var that = this,
 			targetScale = 1,
 			maxScale = 1,
-			minScale = 0.1,
-			range = maxScale - minScale;
+			minScale = 0.35,
+			range = maxScale - minScale,
+			scaleSpeed = 10;
 
 			setRange();
 
@@ -24,8 +25,8 @@
 			} else { 
 				targetScale = scale;
 				that.tick = function() {
-					this.scaleX += (targetScale - this.scaleX) / 2;
-					this.scaleY += (targetScale - this.scaleY) / 2;
+					this.scaleX += (targetScale - this.scaleX) / scaleSpeed;
+					this.scaleY += (targetScale - this.scaleY) / scaleSpeed;
 				};
 			}
 		}

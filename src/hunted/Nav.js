@@ -4,7 +4,14 @@
 
 		var target, 
 			targetGroup = [],
-			navItems = [];
+			navItems = [],
+			maxPerimeter = 1600,
+			minPerimeter = 200,
+			range = maxPerimeter - minPerimeter,
+			distMultiplier = 1,
+			ref = reference;
+
+
 
 
 		function setTarget(newTarget) {
@@ -60,17 +67,38 @@
 
 			var closest, closestDist = 99999999999; // this could technically break the nav if dealing with big enough distances
 
+			console.log("ref: " + ref);
 			_.each(targetGroup, function(target) {
-				var globalReferencePos = reference.localToGlobal(0,0);
+				var globalReferencePos = ref.localToGlobal(0,0);
 				var globalTargetPos = target.localToGlobal(0,0);
-				var dist = PTUtils.distance(globalReferencePos, globalTargetPos);
+				var localReferencePos = ref.globalToLocal(globalTargetPos.x, globalTargetPos.y);
+				var dist = PTUtils.distance(new Point(0, 0), localReferencePos);
+				// var dist = PTUtils.distance(globalReferencePos, globalTargetPos);
 				if (dist < closestDist) {
 					closestDist = dist;
 					closest = target;
 				}
 			});
 
+			distMultiplier = (closestDist - minPerimeter) / range;
+			if ( distMultiplier < 0 ) distMultiplier = 0;
+			if ( distMultiplier > 1 ) distMultiplier = 1;
+			distMultiplier = 1 - distMultiplier;
+
+
+			// console.log("closestDist: " + closestDist);
+			// console.log("distMultiplier: " + distMultiplier);
+			// console.log("range: " + range);
+
 			setTarget(closest);
+		}
+
+		function getDistMultiplier() {
+			return distMultiplier;
+		}
+
+		function setReference(reference) {
+			ref = reference;
 		}
 
 		Ticker.addListener(this);
@@ -86,12 +114,16 @@
 			}
 		};
 
+
+
 		// api
 		this.setTarget = setTarget;
 		this.setTargetGroup = setTargetGroup;
 		this.getTarget = getTarget;
 		this.registerNavItem = registerNavItem;
 		this.unregisterNavItem = unregisterNavItem;
+		this.getDistMultiplier = getDistMultiplier;
+		this.setReference = setReference;
 	};
 
 	window.Nav = Nav;

@@ -73,11 +73,13 @@
 
 		scaleStage.addChild(trackingStage);
 		scaleStage.addChildAt(parallaxScroller, 0);
-		scaleStage.setScaleMultiplier(0);
+		scaleStage.setScaleMultiplier(1);
 
 		trackingStage.addChild(itemScroller);
 		trackingStage.addChild(ship);
 		trackingStage.setTrackingTarget(ship);
+
+		nav.setReference(ship);
 
 
 		// trackingStage.addChild(avoider);
@@ -102,6 +104,8 @@
 			that.tick = function(){
 				checkForHits();
 				stage.update();
+				// set scaleStage's setScaleMultiplier with nav's getDistMultiplier()
+				scaleStage.setScaleMultiplier(nav.getDistMultiplier());
 			};
 		}
 
