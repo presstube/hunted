@@ -3,6 +3,7 @@
 	var HuntedApp = function() {
 
 		var	that = this,
+			gameState = "GAME_OVER",
 			numChasersToSpawn = 1,
 			paused = false,
 			wrapRadius = 2000,
@@ -105,7 +106,11 @@
 				checkForHits();
 				stage.update();
 				// set scaleStage's setScaleMultiplier with nav's getDistMultiplier()
-				scaleStage.setScaleMultiplier(nav.getDistMultiplier());
+				if (gameState == "GAME_ON") {
+					scaleStage.setScaleMultiplier(nav.getDistMultiplier());
+				} else {
+					scaleStage.setScaleMultiplier(1);
+				}
 			};
 		}
 
@@ -114,6 +119,7 @@
 		}
 
 		function start() {
+			gameState = "GAME_ON";
 			// _.each(chasers, function(chaser){ chaser.kill(); });
 			// chasers = [];
 			while (chasers.length > 0) {
@@ -129,6 +135,7 @@
 		}
 
 		function gameOver() {
+			gameState = "GAME_OVER";
 			// while (chasers.length > 0) {
 			// 	chasers.pop().kill();
 			// }
