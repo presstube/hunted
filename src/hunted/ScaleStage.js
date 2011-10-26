@@ -15,9 +15,6 @@
 			range = maxScale - minScale,
 			scaleSpeed = 10;
 
-			setRange();
-
-		
 		function setTargetScale(scale) {
 			if (scale === null) {
 				targetScale = 1;

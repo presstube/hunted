@@ -33,7 +33,7 @@
 				var color = (i === 0) ? '#0F0' : '#0FF'; 
 				var item = new GravityWell(_p.ship);
 				// var item = PTUtils.makeCircle(color, 2);
-				var spawnPoint = PTUtils.polarDegrees((Math.random()*wrapRadius), Math.random()*360);
+				var spawnPoint = PTUtils.polarDegrees(((Math.random()*(wrapRadius-100)))+100, Math.random() * 360);
 				item.x = spawnPoint.x;
 				item.y = spawnPoint.y;
 				item.i = i;

@@ -31,9 +31,9 @@
 				skinClass: ShipSkinGeneric,
 				drag: 0.95,
 				thrustLimit: 2,
-				boostThrust: 5,
-				boostFuelLimit: 50,
-				boostRegenerateFrequency: 5,
+				boostThrust: 4,
+				boostFuelLimit: 30,
+				boostRegenerateFrequency: 10,
 				steeringResponse: 2,
 				steeringLimit: 10,
 				launcherSpread: 5,
@@ -52,7 +52,7 @@
 				wrapRadius: wrapRadius,
 				numItems: 50,
 				ship: ship
-			}),
+			});
 
 			// avoider = new Ship({
 			// 	name: "avoider",
@@ -60,16 +60,22 @@
 			// 	target: ship
 			// }),
 
-			wanderer = new Ship({
-				name: "wanderer",
-				controlsClass: ShipControlsAIWander
-			});
+			// wanderer = new Ship({
+			// 	name: "wanderer",
+			// 	controlsClass: ShipControlsAIWander
+			// });
+
+		// var wandererSpawnPoint = PTUtils.polarDegrees(4000, Math.random()*360);
+		// wanderer.x = wandererSpawnPoint.x;
+		// wanderer.y = wandererSpawnPoint.y;
+
+		// trackingStage.addChild(avoider);
+		// trackingStage.addChild(wanderer);
+		
+		// parallaxScroller.props.target = wanderer;
+		// nav.setTarget(wanderer);
 
 		stage.addChild(fpsLabel, levelText, scaleStage);
-
-		var wandererSpawnPoint = PTUtils.polarDegrees(4000, Math.random()*360);
-		wanderer.x = wandererSpawnPoint.x;
-		wanderer.y = wandererSpawnPoint.y;
 
 		levelText.x = 10; levelText.y = 40;
 
@@ -83,12 +89,6 @@
 
 		nav.setReference(ship);
 
-
-		// trackingStage.addChild(avoider);
-		trackingStage.addChild(wanderer);
-		
-		// parallaxScroller.props.target = wanderer;
-		// nav.setTarget(wanderer);
 		nav.setTargetGroup(chasers);
 		
 		setupTicker();
@@ -126,6 +126,8 @@
 			while (chasers.length > 0) {
 				chasers.pop().kill();
 			}
+
+			console.log("prioj: "+projectiles );
 			while (projectiles.length > 0) {
 				projectiles.pop().kill();
 			}
@@ -137,13 +139,6 @@
 
 		function gameOver() {
 			gameState = "GAME_OVER";
-			// while (chasers.length > 0) {
-			// 	chasers.pop().kill();
-			// }
-			// while (projectiles.length > 0) {
-			// 	console.log("prolength; " + projectiles.length );
-			// 	projectiles.pop().kill();
-			// }
 			$(document).bind('keydown', 'space',function onRestartSpacePressed() {
 					start();
 					$(document).unbind('keydown', onRestartSpacePressed);
