@@ -50,7 +50,7 @@
 				scaleStage: scaleStage,
 				trackingStage: trackingStage,
 				wrapRadius: wrapRadius,
-				numItems: 50,
+				numItems: 70,
 				ship: ship
 			});
 
@@ -81,7 +81,7 @@
 
 		scaleStage.addChild(trackingStage);
 		scaleStage.addChildAt(parallaxScroller, 0);
-		// scaleStage.setScaleMultiplier(1);
+		scaleStage.setScaleMultiplier(.2);
 
 		trackingStage.addChild(itemScroller);
 		trackingStage.addChild(ship);

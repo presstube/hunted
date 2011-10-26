@@ -35,8 +35,8 @@
 		};
 		
 		_p.ship.launcher = launcher;
-		this.addChild(PTUtils.makeTriangle('#ccf', 40, 40));
-		tail.addChild(PTUtils.makeTriangle('#ccf', 20, 20));
+		this.addChild(PTUtils.makeTriangle('#222', 40, 40));
+		tail.addChild(PTUtils.makeTriangle('#222', 20, 20));
 		tail.y = -4;
 		tail.rotation = 180;
 		this.addChild(tail);
