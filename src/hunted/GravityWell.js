@@ -21,6 +21,9 @@
 			if (dist < radius) {
 				var degrees = PTUtils.angleDegrees(target, this);
 				target.addForce(PTUtils.polarDegrees(6, degrees));
+				// if (dist < 20) {
+				// 	target.kill(); // GAME OVER
+				// }
 			}
 		};
 	};
