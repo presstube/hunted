@@ -5,8 +5,8 @@
 		var target, 
 			targetGroup = [],
 			navItems = [],
-			maxPerimeter = 1600,
-			minPerimeter = 200,
+			maxPerimeter = 1200,
+			minPerimeter = 400,
 			range = maxPerimeter - minPerimeter,
 			distMultiplier = 1,
 			ref = reference;
