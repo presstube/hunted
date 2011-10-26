@@ -47,17 +47,33 @@
 		this.tick = function() {
 			globalScaleStageCenter = scaleStage.localToGlobal(0, 0);
 			direction = PTUtils.angleRadians(trackingStage.getAmountToMove(), new Point() );
-			_.each(items, function(item) {
-					var globalItemCenter = item.localToGlobal(0, 0);
-					var distanceFromCenter = PTUtils.distance(globalItemCenter, globalScaleStageCenter);
-					if ( distanceFromCenter > wrapRadius ) {
-						var localScaleStageCenter = that.globalToLocal(globalScaleStageCenter.x, globalScaleStageCenter.y);
-						var respawnAngleRadians = PTUtils.getOppositeAngleRadians(direction);
-						var respawnPoint = PTUtils.polarRadians(wrapRadius, respawnAngleRadians);
-						item.x = localScaleStageCenter.x + respawnPoint.x;
-						item.y = localScaleStageCenter.y + respawnPoint.y;
-					}
-			});
+
+			for (var i = 0; i < items.length; i++) {
+				var item = items[i];
+				var globalItemCenter = item.localToGlobal(0, 0);
+				var localItemPos = scaleStage.globalToLocal(globalItemCenter.x, globalItemCenter.y);
+				// if (i === 0) { console.log("localItemPos: " + localItemPos); }
+				var distanceFromCenter = PTUtils.distance(localItemPos, new Point());
+				if ( distanceFromCenter > wrapRadius ) {
+					var localScaleStageCenter = that.globalToLocal(globalScaleStageCenter.x, globalScaleStageCenter.y);
+					var respawnAngleRadians = PTUtils.getOppositeAngleRadians(direction);
+					var respawnPoint = PTUtils.polarRadians(wrapRadius, respawnAngleRadians);
+					item.x = localScaleStageCenter.x + respawnPoint.x;
+					item.y = localScaleStageCenter.y + respawnPoint.y;
+				}
+			}
+
+			// _.each(items, function(item) {
+			// 		var globalItemCenter = item.localToGlobal(0, 0);
+			// 		var distanceFromCenter = PTUtils.distance(globalItemCenter, globalScaleStageCenter);
+			// 		if ( distanceFromCenter > wrapRadius ) {
+			// 			var localScaleStageCenter = that.globalToLocal(globalScaleStageCenter.x, globalScaleStageCenter.y);
+			// 			var respawnAngleRadians = PTUtils.getOppositeAngleRadians(direction);
+			// 			var respawnPoint = PTUtils.polarRadians(wrapRadius, respawnAngleRadians);
+			// 			item.x = localScaleStageCenter.x + respawnPoint.x;
+			// 			item.y = localScaleStageCenter.y + respawnPoint.y;
+			// 		}
+			// });
 		};
 	};
 

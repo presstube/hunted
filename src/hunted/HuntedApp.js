@@ -6,7 +6,7 @@
 			gameState = "GAME_OVER",
 			numChasersToSpawn = 1,
 			paused = false,
-			wrapRadius = 4000,
+			wrapRadius = 3000,
 			chasers = [],
 			projectiles = [],
 			canvas = document.getElementById("canvas"),
@@ -75,7 +75,7 @@
 
 		scaleStage.addChild(trackingStage);
 		scaleStage.addChildAt(parallaxScroller, 0);
-		scaleStage.setScaleMultiplier(1);
+		// scaleStage.setScaleMultiplier(1);
 
 		trackingStage.addChild(itemScroller);
 		trackingStage.addChild(ship);
