@@ -67,7 +67,7 @@
 
 			var closest, closestDist = 99999999999; // this could technically break the nav if dealing with big enough distances
 
-			console.log("ref: " + ref);
+			// console.log("ref: " + ref);
 			_.each(targetGroup, function(target) {
 				var globalReferencePos = ref.localToGlobal(0,0);
 				var globalTargetPos = target.localToGlobal(0,0);

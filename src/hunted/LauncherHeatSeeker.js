@@ -64,7 +64,7 @@
 		function killProjectile(projectile) {
 			_p.trackingStage.removeChild(projectile);
 			_p.projectiles.splice(_.indexOf(_p.projectiles, projectile), 1);
-			console.log("killing projectile");
+			// console.log("killing projectile");
 		}
 
 		

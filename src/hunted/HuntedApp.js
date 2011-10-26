@@ -119,13 +119,23 @@
 			while (chasers.length > 0) {
 				chasers.pop().kill();
 			}
-			// numChasersToSpawn = 1; // would kick you back to level 1
+			while (projectiles.length > 0) {
+				projectiles.pop().kill();
+			}
+			numChasersToSpawn = 1; // would kick you back to level 1
 			if (numChasersToSpawn > 1) numChasersToSpawn--;
 			trackingStage.addChild(ship);
 			spawnChasers();
 		}
 
 		function gameOver() {
+			// while (chasers.length > 0) {
+			// 	chasers.pop().kill();
+			// }
+			// while (projectiles.length > 0) {
+			// 	console.log("prolength; " + projectiles.length );
+			// 	projectiles.pop().kill();
+			// }
 			$(document).bind('keydown', 'space',function onRestartSpacePressed() {
 					start();
 					$(document).unbind('keydown', onRestartSpacePressed);
