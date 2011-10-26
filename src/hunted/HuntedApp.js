@@ -25,22 +25,15 @@
 				numItems: 50
 			}),
 
-			itemScroller = new ItemScroller({
-				scaleStage: scaleStage,
-				trackingStage: trackingStage,
-				wrapRadius: wrapRadius,
-				numItems: 50
-			}),
-
 			ship = new Ship({
 				name: "hero",
 				controlsClass: ShipControlsKeyboard,
 				skinClass: ShipSkinGeneric,
 				drag: 0.95,
 				thrustLimit: 2,
-				boostThrust: 3,
-				boostFuelLimit: 20,
-				boostRegenerateFrequency: 10,
+				boostThrust: 5,
+				boostFuelLimit: 50,
+				boostRegenerateFrequency: 5,
 				steeringResponse: 2,
 				steeringLimit: 10,
 				launcherSpread: 5,
@@ -51,6 +44,14 @@
 				targetFunc: nav.getTarget,
 				trackingStage: trackingStage,
 				projectiles: projectiles
+			}),
+
+			itemScroller = new ItemScroller({
+				scaleStage: scaleStage,
+				trackingStage: trackingStage,
+				wrapRadius: wrapRadius,
+				numItems: 50,
+				ship: ship
 			}),
 
 			// avoider = new Ship({

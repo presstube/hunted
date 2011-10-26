@@ -28,7 +28,6 @@
 		}
 
 		function registerNavItem(navItem) {
-			console.log("registering nav item");
 			navItems.push(navItem);
 		}
 
