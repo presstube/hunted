@@ -82,7 +82,7 @@
 
 		scaleStage.addChild(trackingStage);
 		scaleStage.addChildAt(parallaxScroller, 0);
-		scaleStage.setScaleMultiplier(.2);
+		scaleStage.setScaleMultiplier(0.2);
 
 		trackingStage.addChild(itemScroller);
 		trackingStage.addChild(ship);
@@ -90,6 +90,7 @@
 
 		this.ship = ship;
 		this.chasers = chasers;
+		this.projectiles = projectiles;
 
 		nav.setReference(ship);
 
@@ -98,6 +99,8 @@
 		setupTicker();
 		rigPauseKey();
 		resize();
+
+
 		start();
 
 
@@ -115,7 +118,7 @@
 				if (gameState == "GAME_ON") {
 					scaleStage.setScaleMultiplier(nav.getDistMultiplier());
 				} else {
-					scaleStage.setScaleMultiplier(1);
+					scaleStage.setScaleMultiplier(0.5);
 				}
 			};
 		}

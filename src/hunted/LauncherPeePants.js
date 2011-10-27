@@ -1,13 +1,15 @@
 (function(window){
 	
-	var Launcher = function(props) { this.initialize(props); };
-	var p = Launcher.prototype = new Container();
+	var LauncherPeePants = function(props) { this.initialize(props); };
+	var p = LauncherPeePants.prototype = new Container();
 	p.Container_initialize = p.initialize;
 
 	p.initialize = function(props) {
 		this.Container_initialize();
 		
-		var _p = this.props = props || {},
+		console.log("props ", props);
+		var that = this,
+			_p = this.props = props || {},
 			skin = PTUtils.makeTriangle('#fff', 5, 5);
 
 			_p.projectileLimit = _p.projectileLimit || 10;
@@ -15,11 +17,14 @@
 		this.addChild(skin);
 		
 		this.launch = function() {
-			console.log("PPPPP: " , _p);
+			_.times(5, fire);
+		};
+
+		function fire() {
 			if (_p.projectiles.length < _p.projectileLimit) {
-				var projectile = this.makeProjectile();
-				var launchPos = this.localToLocal(0, 0, _p.ship.parent);
-				projectile.rotation = _p.ship.rotation + this.rotation;
+				var projectile = that.makeProjectile();
+				var launchPos = that.localToLocal(0, 0, _p.ship.parent);
+				projectile.rotation = _p.ship.rotation + that.rotation;
 				projectile.x = launchPos.x;
 				projectile.y = launchPos.y;
 				_p.trackingStage.addChildAt(projectile, _p.trackingStage.getChildIndex(_p.ship));
@@ -30,10 +35,11 @@
 				_p.projectiles.push(projectile);
 				_.delay(killProjectile, 500, projectile);
 			}
-		};
+			
+		}
 
 		// exposing this as a kind of ammo factory that can be overwritten from outside
-		this.makeProjectile = function() {
+		function makeProjectile() {
 
 			function makeShipProjectile() {
 				var ship = new Ship({
@@ -50,7 +56,7 @@
 			}
 
 			function makeDumbProjectile() {
-				var dp = PTUtils.makeTriangle('#000', 5, 5);
+				var dp = PTUtils.makeTriangle('#ff0', 5, 5);
 				var dpForceAbility = new ForceAbility(dp);
 				dp.tick = function() { dpForceAbility.update(); };
 
@@ -61,6 +67,7 @@
 			return makeDumbProjectile();
 			
 		};
+		this.makeProjectile = makeProjectile;
 
 		function killProjectile(projectile) {
 			_p.trackingStage.removeChild(projectile);
@@ -74,6 +81,6 @@
 		};
 	};
 
-	window.Launcher = Launcher;
+	window.LauncherPeePants = LauncherPeePants;
 
 }(window));

@@ -27,7 +27,7 @@
 				projectile.addForce(PTUtils.polarDegrees(adjProjThrust, projectile.rotation));
 				skin.y = +5;
 				_p.projectiles.push(projectile);
-				_.delay(killProjectile, 5000000, projectile);
+				_.delay(killProjectile, 3000, projectile);
 			}
 		};
 
@@ -36,7 +36,7 @@
 
 			function makeShipProjectile() {
 				var ship = new Ship({
-					thrustLimit: 5,
+					thrustLimit: 2,
 					steeringResponse: 1,
 					steeringLimit: 20,
 					shipSkin: ShipSkinGoon,
@@ -44,7 +44,7 @@
 					targetFunc: _p.targetFunc,
 					target: _p.ship
 				});
-				ship.scaleX = ship.scaleY = 0.5;
+				ship.scaleX = ship.scaleY = 0.2;
 				return ship;
 			}
 

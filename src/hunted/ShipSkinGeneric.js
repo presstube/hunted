@@ -15,6 +15,7 @@
 			exhaustPipe = new ExhaustPipe(props),
 			launcher = new Launcher(props),
 			heatSeekerLauncher = new LauncherHeatSeeker(props);
+			peePants = new LauncherPeePants(props);
 
 		// defaults
 		_p.launcherSpread = _p.launcherSpread || 20;
@@ -27,8 +28,12 @@
 		this.addChild(tail);
 		tail.addChild(exhaustPipe);
 		exhaustPipe.y = -16;
+
 		this.addChild(launcher);
 		launcher.y = -40;
+
+		this.addChild(peePants);
+		peePants.y = -40;
 
 		this.addChild(heatSeekerLauncher);
 		heatSeekerLauncher.y = -40;
@@ -60,7 +65,14 @@
 				for (var i = 0; i < _p.shotsPerLaunch; i++) {
 					heatSeekerLauncher.launch();
 				}
-			}			
+			}	
+						
+			// if (controls.peePants) {
+			// 	for (var i = 0; i < _p.shotsPerLaunch; i++) {
+			// 		console.log("PPPEEE");
+			// 		peePants.launch();
+			// 	}
+			// }			
 
 			if (controls.launch) {
 				for (var i = 0; i < _p.shotsPerLaunch; i++) {

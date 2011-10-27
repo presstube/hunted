@@ -18,7 +18,9 @@
 
 			maxForce = 5,
 			minForce = 0,
-			multForce = 1;
+			multForce = 1,
+
+			shipDist = 0;
 
 		this.addChild(PTUtils.makeCircle('#FFF', maxPushPerimeter));
 		this.addChild(PTUtils.makeCircle('#FFF', minPushPerimeter));
@@ -26,16 +28,28 @@
 		this.alpha = 0.2;
 
 		this.tick = function() {
-			checkTarget(app.ship);
+
+			var globalTargetPos = app.ship.localToGlobal(0,0);
+			shipDist = PTUtils.distance(new Point(0, 0), that.globalToLocal(globalTargetPos.x, globalTargetPos.y));
 			_.each(app.chasers, function(chaser) {
 				checkTarget(chaser);
 			});
+			if (shipDist < 800) {
+				checkTarget(app.ship, shipDist);
+				_.each(app.projectiles, function(projectile){
+					checkTarget(projectile);
+				});
+				
+			}
 		};
 
-		function checkTarget(target) {
-			var force, degrees,
-				globalTargetPos = target.localToGlobal(0,0),
+		function checkTarget(target, dist) {
+			var force, degrees;
+				
+			if (!dist) {
+				var globalTargetPos = target.localToGlobal(0,0);
 				dist = PTUtils.distance(new Point(0, 0), that.globalToLocal(globalTargetPos.x, globalTargetPos.y));
+			}
 
 			if (dist < maxPullPerimeter) {
 				multPullPerimeter = (dist - minPullPerimeter)/(maxPullPerimeter - minPullPerimeter);

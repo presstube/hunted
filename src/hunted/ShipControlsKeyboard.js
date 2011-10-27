@@ -4,14 +4,15 @@
 		
 		var that = this;
 
-		var upHeld, downHeld, leftHeld, rightHeld, spaceHeld, shiftHeld, sHeld;
-		upHeld = downHeld = leftHeld = rightHeld = spaceHeld = shiftHeld = sHeld = false;
+		var upHeld, downHeld, leftHeld, rightHeld, spaceHeld, shiftHeld, sHeld, wHeld;
+		upHeld = downHeld = leftHeld = rightHeld = spaceHeld = shiftHeld = sHeld = wHeld = false;
 
 		this.throttle = 0;
 		this.steering = 0;
 		this.boost = false;
 		this.launch = false;
 		this.seeker = false;
+		this.peePants = false;
 
 		bindKeys();
 
@@ -23,6 +24,7 @@
 			$(document).bind('keydown', 'space',function (){ spaceHeld = true; });
 			$(document).bind('keydown', 'shift',function (){ shiftHeld = true; });
 			$(document).bind('keydown', 's',function (){ sHeld = true; });
+			$(document).bind('keydown', 'w',function (){ wHeld = true; });
 
 			$(document).bind('keyup', 'left',function (){ leftHeld = false; });
 			$(document).bind('keyup', 'right',function (){ rightHeld = false; });
@@ -31,6 +33,7 @@
 			$(document).bind('keyup', 'space',function (){ spaceHeld = false; });
 			$(document).bind('keyup', 'shift',function (){ shiftHeld = false; });
 			$(document).bind('keyup', 's',function (){ sHeld = false; });
+			$(document).bind('keyup', 'w',function (){ wHeld = false; });
 		}
 
 		this.update = function () {
@@ -40,6 +43,7 @@
 			setBoost();
 			setFire();
 			setSeeker();
+			setPeePants();
 
 			function setThrottle() {
 				if (upHeld && !downHeld) {
@@ -71,6 +75,10 @@
 
 			function setSeeker() {
 				that.seeker = sHeld ? true : false;
+			}
+
+			function setPeePants() {
+				that.peePants = wHeld ? true : false;
 			}
 		};
 

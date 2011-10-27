@@ -35,13 +35,15 @@
 				var rand = Math.random();
 				item = new GravityWellRepelBubble(_p.app);
 				// item = new GravityWellBubble(_p.ship);
+				
 				// if (rand < 0.3) {
-				// 	item = new GravityWellBubble(_p.ship);
+				// 	item = new GravityWellRepelBubble(_p.app);
 				// } else if (rand < 0.6) {
-				// 	item = new GravityWellMellow(_p.ship);
+				// 	item = new GravityWellRepel(_p.app);
 				// } else {
-				// 	item = new GravityWellRepel(_p.ship);
+				// 	item = new GravityWellRepel(_p.app);
 				// }
+
 				// var item = PTUtils.makeCircle(color, 2);
 				var spawnPoint = PTUtils.polarDegrees(((Math.random()*(wrapRadius-500)))+500, Math.random() * 360);
 				item.x = spawnPoint.x;
