@@ -20,8 +20,8 @@
 		_p.launcherSpread = _p.launcherSpread || 20;
 		_p.shotsPerLaunch = _p.shotsPerLaunch || 3;
 
-		this.addChild(PTUtils.makeTriangle('#F00', 40, 40));
-		tail.addChild(PTUtils.makeTriangle('#F00', 20, 20));
+		this.addChild(PTUtils.makeTriangle('#222', 40, 40));
+		tail.addChild(PTUtils.makeTriangle('#222', 20, 20));
 		tail.y = -4;
 		tail.rotation = 180;
 		this.addChild(tail);

@@ -9,10 +9,10 @@
 
 		var that = this,
 			maxPushPerimeter = 300,
-			minPushPerimeter = 100, 
+			minPushPerimeter = 150, 
 			multPushPerimeter = maxPushPerimeter - minPushPerimeter,
 
-			maxPullPerimeter = 100,
+			maxPullPerimeter = 150,
 			minPullPerimeter = 0, 
 			multPullPerimeter = 1,
 
