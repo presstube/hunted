@@ -16,7 +16,7 @@
 
 		this.addChild(PTUtils.makeCircle('#F00', maxPerimeter));
 
-		this.alpha = 0.8;
+		this.alpha = 0.2;
 
 
 		this.tick = function() {

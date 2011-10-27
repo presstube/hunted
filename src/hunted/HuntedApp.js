@@ -47,10 +47,11 @@
 			}),
 
 			itemScroller = new ItemScroller({
+				app: this,
 				scaleStage: scaleStage,
 				trackingStage: trackingStage,
 				wrapRadius: wrapRadius,
-				numItems: 70,
+				numItems: 20,
 				ship: ship
 			});
 
@@ -87,6 +88,9 @@
 		trackingStage.addChild(ship);
 		trackingStage.setTrackingTarget(ship);
 
+		this.ship = ship;
+		this.chasers = chasers;
+
 		nav.setReference(ship);
 
 		nav.setTargetGroup(chasers);
@@ -95,6 +99,7 @@
 		rigPauseKey();
 		resize();
 		start();
+
 
 		function setupTicker() {
 			Ticker.setFPS(30);

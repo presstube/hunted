@@ -10,7 +10,7 @@
 		
 		var that = this,
 			targetScale = 1,
-			maxScale = .8,
+			maxScale = 0.8,
 			minScale = 0.35,
 			range = maxScale - minScale,
 			scaleSpeed = 10;

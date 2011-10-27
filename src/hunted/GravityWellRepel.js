@@ -1,23 +1,26 @@
 (function(window){
 	
-	var GravityWellMellow = function(target) {this.initialize(target);};
-	var p = GravityWellMellow.prototype = new Container();
+	var GravityWellRepel = function(target) {this.initialize(target);};
+	var p = GravityWellRepel.prototype = new Container();
 	p.Container_initialize = p.initialize;
 
 	p.initialize = function(target) {
 		this.Container_initialize();
 
 		var maxPerimeter = 300,
-			minPerimeter = 0, 
+			minPerimeter = 150, 
 			multPerimeter = maxPerimeter - minPerimeter,
 			maxForce = 5,
 			minForce = 0,
 			multForce = 1;
 
-		this.addChild(PTUtils.makeCircle('#F00', maxPerimeter));
+		this.addChild(PTUtils.makeCircle('#00F', maxPerimeter));
+		// this.addChild(PTUtils.makeCircle('#00F', minPerimeter));
 
-		this.alpha = 0.8;
+		this.alpha = 0.2;
 
+		// var innerWell = new GravityWellBubble(target);
+		// this.addChild(innerWell);
 
 		this.tick = function() {
 			var globalTargetPos = target.localToGlobal(0,0);
@@ -36,11 +39,13 @@
 
 				// multForce = 1 - multForce;
 
-				// var force = (maxForce*multPerimeter);
-				var force = maxForce-(maxForce*multPerimeter);
-
+				var force = (maxForce*multPerimeter);
+				// var force = maxForce-(maxForce*multPerimeter);
+				// console.log("multPerimeter: " + multPerimeter);
+				// console.log("force: " + force);
 				var degrees = PTUtils.angleDegrees(target, this);
-				target.addForce(PTUtils.polarDegrees(force, degrees/*+180*/)); // degrees+180 for a 'repulsion well'
+				degrees = PTUtils.getAdjustedRotation(degrees+180);
+				target.addForce(PTUtils.polarDegrees(force, degrees)); // degrees+180 for a 'repulsion well'
 
 
 
@@ -51,6 +56,6 @@
 		};
 	};
 
-	window.GravityWellMellow = GravityWellMellow;
+	window.GravityWellRepel = GravityWellRepel;
 
 }(window));

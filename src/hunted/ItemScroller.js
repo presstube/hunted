@@ -19,7 +19,7 @@
 			direction = 0,
 			items = [];
 
-			console.log("wr: " + wrapRadius);
+			console.log("_p.app: ", _p.app);
 			
 		this.hitTarget = undefined;
 
@@ -31,7 +31,17 @@
 			
 			function makeItem(i) {
 				var color = (i === 0) ? '#0F0' : '#0FF'; 
-				var item = new GravityWell(_p.ship);
+				var item;
+				var rand = Math.random();
+				item = new GravityWellRepelBubble(_p.app);
+				// item = new GravityWellBubble(_p.ship);
+				// if (rand < 0.3) {
+				// 	item = new GravityWellBubble(_p.ship);
+				// } else if (rand < 0.6) {
+				// 	item = new GravityWellMellow(_p.ship);
+				// } else {
+				// 	item = new GravityWellRepel(_p.ship);
+				// }
 				// var item = PTUtils.makeCircle(color, 2);
 				var spawnPoint = PTUtils.polarDegrees(((Math.random()*(wrapRadius-500)))+500, Math.random() * 360);
 				item.x = spawnPoint.x;
