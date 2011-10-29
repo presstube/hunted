@@ -14,7 +14,7 @@
 			tail = new Container(),
 			exhaustPipe = new ExhaustPipe(props),
 			launcher = new Launcher(props),
-			heatSeekerLauncher = new LauncherHeatSeeker(props);
+			heatSeekerLauncher = new LauncherHeatSeeker(props),
 			peePants = new LauncherPeePants(props);
 
 		// defaults
@@ -32,13 +32,14 @@
 		this.addChild(launcher);
 		launcher.y = -40;
 
-		this.addChild(peePants);
-		peePants.y = -40;
-
 		this.addChild(heatSeekerLauncher);
 		heatSeekerLauncher.y = -40;
 
-		this.props.ship.launcher = launcher;
+		this.addChild(peePants);
+		peePants.y = -40;
+
+
+		// this.props.ship.launcher = launcher;
 
 		this.update = function() {
 			var controls = this.props.ship.controls;
@@ -59,20 +60,13 @@
 				exhaustPipe.engage();
 			}
 			
-			
-			
 			if (controls.seeker) {
-				for (var i = 0; i < _p.shotsPerLaunch; i++) {
-					heatSeekerLauncher.launch();
-				}
+				heatSeekerLauncher.launch();
 			}	
 						
-			// if (controls.peePants) {
-			// 	for (var i = 0; i < _p.shotsPerLaunch; i++) {
-			// 		console.log("PPPEEE");
-			// 		peePants.launch();
-			// 	}
-			// }			
+			if (controls.peePants) {
+				peePants.launch();
+			}			
 
 			if (controls.launch) {
 				for (var i = 0; i < _p.shotsPerLaunch; i++) {

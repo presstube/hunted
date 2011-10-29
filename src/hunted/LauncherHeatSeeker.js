@@ -41,8 +41,8 @@
 					steeringLimit: 20,
 					shipSkin: ShipSkinGoon,
 					controlsClass: ShipControlsAIChaseDynamic,
-					targetFunc: _p.targetFunc,
-					target: _p.ship
+					targetFunc: _p.targetFunc
+					// target: _p.ship
 				});
 				ship.scaleX = ship.scaleY = 0.2;
 				return ship;

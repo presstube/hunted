@@ -7,21 +7,26 @@
 	p.initialize = function(props) {
 		this.Container_initialize();
 		
-		console.log("props ", props);
 		var that = this,
 			_p = this.props = props || {},
 			skin = PTUtils.makeTriangle('#fff', 5, 5);
 
 			_p.projectileLimit = _p.projectileLimit || 10;
+
+		var spread = 5;
+		var ammoLifeSpan = 1000;
 		
 		this.addChild(skin);
 		
 		this.launch = function() {
 			_.times(5, fire);
+			// fire();
 		};
 
 		function fire() {
 			if (_p.projectiles.length < _p.projectileLimit) {
+				// that.rotation = 90;
+				that.rotation = Math.random()*spread - Math.random()*spread;
 				var projectile = that.makeProjectile();
 				var launchPos = that.localToLocal(0, 0, _p.ship.parent);
 				projectile.rotation = _p.ship.rotation + that.rotation;
@@ -30,10 +35,11 @@
 				_p.trackingStage.addChildAt(projectile, _p.trackingStage.getChildIndex(_p.ship));
 				projectile.addForce(_p.ship.getForce());
 				var adjProjThrust = _p.projectileThrust - (Math.random()*(_p.projectileThrust/4));
-				projectile.addForce(PTUtils.polarDegrees(adjProjThrust, projectile.rotation));
+				projectile.addForce(PTUtils.polarDegrees(adjProjThrust, _p.ship.rotation + that.rotation));
 				skin.y = +5;
 				_p.projectiles.push(projectile);
-				_.delay(killProjectile, 500, projectile);
+				_.delay(killProjectile, ammoLifeSpan, projectile);
+				// that.rotation = 0;
 			}
 			
 		}

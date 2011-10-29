@@ -40,7 +40,7 @@
 				projectileThrust: 40,
 				shotsPerLaunch: 1,
 				projectileLife: 20,
-				projectileLimit: 20,
+				projectileLimit: 200,
 				targetFunc: nav.getTarget,
 				trackingStage: trackingStage,
 				projectiles: projectiles

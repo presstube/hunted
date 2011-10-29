@@ -9,10 +9,11 @@ Hunted
 
 Why?
 ----
-- Because making a crappy game is as fun as playing a good one.
+- Because making a crappy game more fun than playing a good one.
+- I am a JS noob and want to get my code reviewed by others who know what they are doing.
 
 Dependencies
 ------------
 - Grant Skinner's Easel.js to ease me into JS with some handy AS-like objects and a much needed display list for canvas.
-- Underscore.js b/c it is handy, and Backbone.js for its Event system.
+- Underscore.js b/c it is mighty handy.
 - jQuery hotkeys plugin (slightly modified to fit my purposes) for reliable keyboard input.
