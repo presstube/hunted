@@ -13,6 +13,7 @@
 			tailSwingRange = 20,
 			tail = new Container(),
 			exhaustPipe = new ExhaustPipe(props),
+			boost = new Boost(props),
 			launcher = new Launcher(props),
 			heatSeekerLauncher = new LauncherHeatSeeker(props),
 			peePants = new LauncherPeePants(props);
@@ -22,6 +23,8 @@
 		_p.shotsPerLaunch = _p.shotsPerLaunch || 3;
 
 		this.addChild(PTUtils.makeTriangle('#222', 40, 40));
+
+
 		tail.addChild(PTUtils.makeTriangle('#222', 20, 20));
 		tail.y = -4;
 		tail.rotation = 180;
@@ -38,6 +41,8 @@
 		this.addChild(peePants);
 		peePants.y = -40;
 
+		boost.y = 5;
+		this.addChild(boost);
 
 		// this.props.ship.launcher = launcher;
 
@@ -77,6 +82,8 @@
 				launcher.rotation = 0;
 			}
 		};
+
+		this.boost = boost;
 	};
 
 	window.ShipSkinGeneric = ShipSkinGeneric;

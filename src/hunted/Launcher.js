@@ -15,7 +15,6 @@
 		this.addChild(skin);
 		
 		this.launch = function() {
-			console.log("PPPPP: " , _p);
 			if (_p.projectiles.length < _p.projectileLimit) {
 				var projectile = this.makeProjectile();
 				var launchPos = this.localToLocal(0, 0, _p.ship.parent);
@@ -50,7 +49,7 @@
 			}
 
 			function makeDumbProjectile() {
-				var dp = PTUtils.makeTriangle('#000', 5, 5);
+				var dp = PTUtils.makeTriangle('#ff0', 5, 5);
 				var dpForceAbility = new ForceAbility(dp);
 				dp.tick = function() { dpForceAbility.update(); };
 

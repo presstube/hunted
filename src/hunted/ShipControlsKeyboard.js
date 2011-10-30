@@ -4,8 +4,10 @@
 		
 		var that = this;
 
-		var upHeld, downHeld, leftHeld, rightHeld, spaceHeld, shiftHeld, sHeld, wHeld;
-		upHeld = downHeld = leftHeld = rightHeld = spaceHeld = shiftHeld = sHeld = wHeld = false;
+		var upHeld, downHeld, leftHeld, rightHeld, 
+			spaceHeld, shiftHeld;
+
+		upHeld = downHeld = leftHeld = rightHeld = spaceHeld = shiftHeld = false;
 
 		this.throttle = 0;
 		this.steering = 0;
@@ -21,19 +23,31 @@
 			$(document).bind('keydown', 'right',function (){ rightHeld = true; });
 			$(document).bind('keydown', 'up',function (){ upHeld = true; });
 			$(document).bind('keydown', 'down',function (){ downHeld = true; });
+
+			$(document).bind('keydown', 'a',function (){ leftHeld = true; });
+			$(document).bind('keydown', 'd',function (){ rightHeld = true; });
+			$(document).bind('keydown', 'w',function (){ upHeld = true; });
+			$(document).bind('keydown', 's',function (){ downHeld = true; });
+			
 			$(document).bind('keydown', 'space',function (){ spaceHeld = true; });
 			$(document).bind('keydown', 'shift',function (){ shiftHeld = true; });
-			$(document).bind('keydown', 's',function (){ sHeld = true; });
-			$(document).bind('keydown', 'w',function (){ wHeld = true; });
+			// $(document).bind('keydown', 's',function (){ sHeld = true; });
+			// $(document).bind('keydown', 'w',function (){ wHeld = true; });
 
 			$(document).bind('keyup', 'left',function (){ leftHeld = false; });
 			$(document).bind('keyup', 'right',function (){ rightHeld = false; });
 			$(document).bind('keyup', 'up',function (){ upHeld = false; });
 			$(document).bind('keyup', 'down',function (){ downHeld = false; });
+
+			$(document).bind('keyup', 'a',function (){ leftHeld = false; });
+			$(document).bind('keyup', 'd',function (){ rightHeld = false; });
+			$(document).bind('keyup', 'w',function (){ upHeld = false; });
+			$(document).bind('keyup', 's',function (){ downHeld = false; });
+
 			$(document).bind('keyup', 'space',function (){ spaceHeld = false; });
 			$(document).bind('keyup', 'shift',function (){ shiftHeld = false; });
-			$(document).bind('keyup', 's',function (){ sHeld = false; });
-			$(document).bind('keyup', 'w',function (){ wHeld = false; });
+			// $(document).bind('keyup', 's',function (){ sHeld = false; });
+			// $(document).bind('keyup', 'w',function (){ wHeld = false; });
 		}
 
 		this.update = function () {
@@ -42,8 +56,8 @@
 			setSteering();
 			setBoost();
 			setFire();
-			setSeeker();
-			setPeePants();
+			// setSeeker();
+			// setPeePants();
 
 			function setThrottle() {
 				if (upHeld && !downHeld) {
@@ -73,13 +87,13 @@
 				that.launch = spaceHeld ? true : false;
 			}
 
-			function setSeeker() {
-				that.seeker = sHeld ? true : false;
-			}
+			// function setSeeker() {
+			// 	that.seeker = sHeld ? true : false;
+			// }
 
-			function setPeePants() {
-				that.peePants = wHeld ? true : false;
-			}
+			// function setPeePants() {
+			// 	that.peePants = wHeld ? true : false;
+			// }
 		};
 
 	};

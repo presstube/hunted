@@ -16,6 +16,7 @@
 			trackingStage = new TrackingStage(),
 			nav = new Nav(scaleStage),
 			levelText = new Text("-- fps","bold 20px Arial","#FFF"),
+			fuelLimit = 20,
 
 			parallaxScroller = new ParallaxScroller({
 				app: this,
@@ -32,7 +33,7 @@
 				drag: 0.95,
 				thrustLimit: 2,
 				boostThrust: 4,
-				boostFuelLimit: 30,
+				boostFuelLimit: fuelLimit,
 				boostRegenerateFrequency: 10,
 				steeringResponse: 2,
 				steeringLimit: 10,
@@ -134,8 +135,6 @@
 			while (chasers.length > 0) {
 				chasers.pop().kill();
 			}
-
-			console.log("prioj: "+projectiles );
 			while (projectiles.length > 0) {
 				projectiles.pop().kill();
 			}
@@ -143,6 +142,7 @@
 			if (numChasersToSpawn > 1) numChasersToSpawn--;
 			trackingStage.addChild(ship);
 			spawnChasers();
+			ship.skin.boost.setBoostFuel(fuelLimit);
 		}
 
 		function gameOver() {

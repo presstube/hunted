@@ -72,7 +72,8 @@
 			// return makeShipProjectile();
 			return makeDumbProjectile();
 			
-		};
+		}
+		
 		this.makeProjectile = makeProjectile;
 
 		function killProjectile(projectile) {
