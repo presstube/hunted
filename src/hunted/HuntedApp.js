@@ -32,7 +32,7 @@
 				skinClass: ShipSkinGeneric,
 				drag: 0.95,
 				thrustLimit: 2,
-				boostThrust: 10,
+				boostThrust: 5,
 				boostFuelLimit: fuelLimit,
 				boostRegenerateFrequency: 4,
 				steeringResponse: 2,
@@ -54,7 +54,9 @@
 				wrapRadius: wrapRadius,
 				numItems: 20,
 				ship: ship
-			});
+			}),
+
+			mask = PTUtils.makeCircle('555', 500);
 
 			// avoider = new Ship({
 			// 	name: "avoider",
@@ -78,6 +80,8 @@
 		// nav.setTarget(wanderer);
 
 		stage.addChild(fpsLabel, levelText, scaleStage);
+
+		mask.compositeOperation = "destination-atop";
 
 		levelText.x = 10; levelText.y = 40;
 
@@ -277,6 +281,8 @@
 			canvas.height = window.innerHeight;
 			scaleStage.x = canvas.width / 2;
 			scaleStage.y = canvas.height / 2; 
+			mask.x = canvas.width / 2;
+			mask.y = canvas.height / 2; 
 			stage.update();
 		}
 
