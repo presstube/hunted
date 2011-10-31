@@ -30,7 +30,7 @@
 				force = PTUtils.polarDegrees(_p.boostThrust*mult, ship.rotation);
 				ship.addForce(force);
 				boostFuel--;
-				var shudder = 20;
+				var shudder = 15;
 				app.stage.x += Math.random()*shudder*mult - Math.random()*shudder*mult;
 				app.stage.y += Math.random()*shudder*mult - Math.random()*shudder*mult;
 				console.log("widd: " + skin.width);
