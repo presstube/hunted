@@ -13,5 +13,5 @@ Why?
 Dependencies
 ------------
 - Easel.js for its display list and AS-like objects.
-- Underscore.js b/c for all around handiness.
+- Underscore.js for all around handiness.
 - jQuery & hotkeys plugin (slightly modified) for reliable keyboard input.
