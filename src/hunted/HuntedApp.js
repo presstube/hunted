@@ -6,7 +6,7 @@
 			gameState = "GAME_OVER",
 			numChasersToSpawn = 1,
 			paused = false,
-			wrapRadius = 1000,
+			wrapRadius = 3000,
 			chasers = [],
 			projectiles = [],
 			canvas = document.getElementById("canvas"),
@@ -23,7 +23,7 @@
 				trackingStage : trackingStage,
 				wrapRadius: wrapRadius,
 				nav: nav,
-				numItems: 20
+				numItems: 50
 			}),
 
 			ship = new Ship({
@@ -52,7 +52,7 @@
 				scaleStage: scaleStage,
 				trackingStage: trackingStage,
 				wrapRadius: wrapRadius,
-				numItems: 5,
+				numItems: 20,
 				ship: ship
 			});
 
