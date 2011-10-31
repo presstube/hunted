@@ -18,6 +18,10 @@
 			levelText = new Text("-- fps","bold 20px Arial","#FFF"),
 			fuelLimit = 40,
 
+			skunkSprayGunProps = {
+				
+			},
+
 			parallaxScroller = new ParallaxScroller({
 				app: this,
 				trackingStage : trackingStage,
@@ -34,14 +38,22 @@
 				thrustLimit: 2,
 				boostThrust: 4,
 				boostFuelLimit: fuelLimit,
-				boostRegenerateFrequency: 10,
+				boostRegenerateFrequency: 5,
 				steeringResponse: 2,
 				steeringLimit: 10,
-				launcherSpread: 5,
+
+				// break out gun props
+
+				launcherSpread: 30,
 				projectileThrust: 40,
-				shotsPerLaunch: 1,
-				projectileLife: 20,
-				projectileLimit: 200,
+				shotsPerLaunch: 8,
+				projectileLife: 30,
+				projectileLimit: 200,	
+				// launcherSpread: 5,
+				// projectileThrust: 40,
+				// shotsPerLaunch: 1,
+				// projectileLife: 20,
+				// projectileLimit: 200,
 				targetFunc: nav.getTarget,
 				trackingStage: trackingStage,
 				projectiles: projectiles
@@ -179,6 +191,10 @@
 			trackingStage.addChild(chaser);
 		}
 
+		function multPoint(point, times) {
+			return new Point(point.x * times, point.y * times);	
+		}
+
 		function checkForHits(){
 
 			if (chasers.length > 0) {
@@ -219,10 +235,13 @@
 									}
 								}
 
-								trackingStage.removeChild(chaser);
+								// trackingStage.removeChild(chaser);
+
 								for (k = 0; k < chasers.length; k++) {
 									if (chaser === chasers[k]) {
-										chasers.splice(k, 1);
+										// chaser.kill();
+										chaser.addForce(multPoint(projectile.getForce(), 0.5));
+										// chasers.splice(k, 1);
 									}
 								}
 
@@ -275,6 +294,7 @@
 			stage.update();
 		}
 
+		this.spawnChasers = spawnChasers;
 		window.onresize = resize;
 		window.sp = ship.props;
 		window.scaleStage = scaleStage;

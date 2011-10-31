@@ -32,7 +32,7 @@
 			var globalTargetPos = app.ship.localToGlobal(0,0);
 			shipDist = PTUtils.distance(new Point(0, 0), that.globalToLocal(globalTargetPos.x, globalTargetPos.y));
 			_.each(app.chasers, function(chaser) {
-				checkTarget(chaser);
+				checkTarget(chaser, undefined, true);
 			});
 			if (shipDist < 800) {
 				checkTarget(app.ship, shipDist);
@@ -43,7 +43,7 @@
 			}
 		};
 
-		function checkTarget(target, dist) {
+		function checkTarget(target, dist, isChaser) {
 			var force, degrees;
 				
 			if (!dist) {
@@ -52,6 +52,12 @@
 			}
 
 			if (dist < maxPullPerimeter) {
+				if (isChaser) {
+					target.kill();
+					app.chasers.splice(_.indexOf(app.chasers, target), 1);
+					if (app.chasers.length === 0) app.spawnChasers();
+				}
+				 
 				multPullPerimeter = (dist - minPullPerimeter)/(maxPullPerimeter - minPullPerimeter);
 				multPullPerimeter = (multPullPerimeter>maxPullPerimeter) ? maxPullPerimeter : multPullPerimeter;
 				multPullPerimeter = (multPullPerimeter<0) ? 0 : multPullPerimeter;
