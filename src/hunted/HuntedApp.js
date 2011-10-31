@@ -16,7 +16,7 @@
 			trackingStage = new TrackingStage(),
 			nav = new Nav(scaleStage),
 			levelText = new Text("-- fps","bold 20px Arial","#FFF"),
-			fuelLimit = 20,
+			fuelLimit = 40,
 
 			parallaxScroller = new ParallaxScroller({
 				app: this,
