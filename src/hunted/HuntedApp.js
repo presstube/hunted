@@ -32,9 +32,9 @@
 				skinClass: ShipSkinGeneric,
 				drag: 0.95,
 				thrustLimit: 2,
-				boostThrust: 4,
+				boostThrust: 10,
 				boostFuelLimit: fuelLimit,
-				boostRegenerateFrequency: 10,
+				boostRegenerateFrequency: 4,
 				steeringResponse: 2,
 				steeringLimit: 10,
 				launcherSpread: 5,
@@ -92,6 +92,8 @@
 		this.ship = ship;
 		this.chasers = chasers;
 		this.projectiles = projectiles;
+		this.trackingStage = trackingStage;
+		this.stage = stage;
 
 		nav.setReference(ship);
 
@@ -121,6 +123,9 @@
 				} else {
 					scaleStage.setScaleMultiplier(0.5);
 				}
+
+				stage.x += (0 - stage.x) / 1.5;
+				stage.y += (0 - stage.y) / 1.5;
 			};
 		}
 
