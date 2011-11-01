@@ -33,7 +33,6 @@
 				var shudder = 15;
 				app.stage.x += Math.random()*shudder*mult - Math.random()*shudder*mult;
 				app.stage.y += Math.random()*shudder*mult - Math.random()*shudder*mult;
-				console.log("widd: " + skin.width);
 				var boostChunk = PTUtils.makeTriangle('#fff', width*mult, width*mult);
 				boostChunk.x = ship.x;
 				boostChunk.y = ship.y;
@@ -51,7 +50,7 @@
 
 			skin.scaleX = skin.scaleY = (boostFuel / _p.boostFuelLimit);
 
-			// console.log('boost mult: ' + (boostFuel / _p.boostFuelLimit));
+			// console.log('app: ' + window.app);
 		};
 
 		this.setBoostFuel = function(fuel) {

@@ -58,6 +58,8 @@
 				force = (maxForce*multPullPerimeter);
 				degrees = PTUtils.angleDegrees(target, that);
 				target.addForce(PTUtils.polarDegrees(force, degrees));
+
+				console.log("app: " + app);
 			} else if (dist < maxPushPerimeter) {
 				multPushPerimeter = (dist - minPushPerimeter)/(maxPushPerimeter - minPushPerimeter);
 				multPushPerimeter = (multPushPerimeter>maxPushPerimeter) ? maxPushPerimeter : multPushPerimeter;

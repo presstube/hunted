@@ -8,6 +8,7 @@
 
 		var _p = target.props;
 
+
 		function applyForce() {
 			target.x += force.x;
 			target.y += force.y;
@@ -15,7 +16,7 @@
 		
 		function applyDrag() {
 			force.x *= Global.drag;
-			force.y *=Global.drag;
+			force.y *= Global.drag;
 		}
 
 		this.update = function() {

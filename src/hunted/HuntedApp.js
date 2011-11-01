@@ -3,6 +3,7 @@
 	var HuntedApp = function() {
 
 		var	that = this,
+			drag = 0.95,
 			gameState = "GAME_OVER",
 			numChasersToSpawn = 1,
 			paused = false,
@@ -98,6 +99,7 @@
 		this.projectiles = projectiles;
 		this.trackingStage = trackingStage;
 		this.stage = stage;
+		this.drag = drag;
 
 		nav.setReference(ship);
 
