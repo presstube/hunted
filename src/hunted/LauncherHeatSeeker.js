@@ -50,7 +50,7 @@
 
 			function makeDumbProjectile() {
 				var dp = PTUtils.makeTriangle('#ff0', 5, 5);
-				var dpForceAbility = new ForceAbility(dp);
+				var dpForceAbility = new ForceAbility({app: _p.app, target: dp});
 				dp.tick = function() { dpForceAbility.update(); };
 
 				return dp;

@@ -1,4 +1,13 @@
 (function(window){
+
+	/*
+		props { 
+			ship: the host ship
+			boostThrust: boostThrust,
+			boostFuelLimit: boostFuelLimit,
+			boostRegenerateFrequency: boostRegenerateFrequency
+		}
+	*/
 	
 	var Boost = function(props) {this.initialize(props);};
 	var p = Boost.prototype = new Container();
@@ -20,20 +29,20 @@
 			tickCount = 0,
 			force = new Point();
 
-		// skin.rotation = 180;
 		skin.y = -10;
 		this.addChild(skin);
 
 		this.tick = function() {
 			if(controls.boost && boostFuel > 0) { 
 				var mult = boostFuel / _p.boostFuelLimit;
-				force = PTUtils.polarDegrees(_p.boostThrust*mult, ship.rotation);
+				force = PTUtils.polarDegrees(_p.boostThrust/*mult*/, ship.rotation);
 				ship.addForce(force);
 				boostFuel--;
-				var shudder = 15;
-				app.stage.x += Math.random()*shudder*mult - Math.random()*shudder*mult;
-				app.stage.y += Math.random()*shudder*mult - Math.random()*shudder*mult;
-				console.log("widd: " + skin.width);
+				var shudder = 5;
+				// app.stage.x += Math.random()*shudder*mult - Math.random()*shudder*mult;
+				// app.stage.y += Math.random()*shudder*mult - Math.random()*shudder*mult;
+				app.stage.x += Math.random()*shudder - Math.random()*shudder;
+				app.stage.y += Math.random()*shudder - Math.random()*shudder;
 				var boostChunk = PTUtils.makeTriangle('#fff', width*mult, width*mult);
 				boostChunk.x = ship.x;
 				boostChunk.y = ship.y;
@@ -50,8 +59,6 @@
 			tickCount++;
 
 			skin.scaleX = skin.scaleY = (boostFuel / _p.boostFuelLimit);
-
-			// console.log('boost mult: ' + (boostFuel / _p.boostFuelLimit));
 		};
 
 		this.setBoostFuel = function(fuel) {

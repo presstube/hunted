@@ -56,8 +56,6 @@
 			setSteering();
 			setBoost();
 			setFire();
-			// setSeeker();
-			// setPeePants();
 
 			function setThrottle() {
 				if (upHeld && !downHeld) {
@@ -83,17 +81,9 @@
 				that.boost = shiftHeld ? true : false;
 			}
 			
-			function setFire() {
+			function setFire() { 
 				that.launch = spaceHeld ? true : false;
 			}
-
-			// function setSeeker() {
-			// 	that.seeker = sHeld ? true : false;
-			// }
-
-			// function setPeePants() {
-			// 	that.peePants = wHeld ? true : false;
-			// }
 		};
 
 	};

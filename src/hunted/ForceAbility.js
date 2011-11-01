@@ -1,12 +1,23 @@
 (function(window){
+
+	/*
+		props { 
+			app: app
+			target: DisplayObject, 
+			drag: Number 
+		}
+	*/
 	
-	var ForceAbility = function(target) {
+	var ForceAbility = function(props) {
+
+		console.log("props.app: " + props.app);
+
+		var app = props.app,
+			target = props.target;
 
 		target.isForceable = true;
 
 		var force = new Point();
-
-		var _p = target.props;
 
 		function applyForce() {
 			target.x += force.x;
@@ -14,8 +25,8 @@
 		}
 		
 		function applyDrag() {
-			force.x *= Global.drag;
-			force.y *=Global.drag;
+			force.x *= app.drag;
+			force.y *= app.drag;
 		}
 
 		this.update = function() {

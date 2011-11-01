@@ -1,10 +1,47 @@
 (function(window) {
 
+	/*
+		props {												/// these comments should show ranges if they apply	
+				app: app,
+				name: "hero",
+				controlsClass: ShipControlsKeyboard,
+				skinClass: ShipSkinGeneric,
+				engineClass: ShipEngineGeneric,
+
+				// for the engine
+				thrustLimit: 2,
+				
+				// for the booster
+				boostThrust: 5,
+				boostFuelLimit: boostFuelLimit,
+				boostRegenerateFrequency: 4,
+
+				// for the steering
+				steeringResponse: 2,
+				steeringLimit: 10,
+
+				// for the gun
+				launcherSpread: 5,
+				projectileThrust: 40,
+				shotsPerLaunch: 1,
+				projectileLife: 20,
+				projectileLimit: 200,
+
+				// for the heatseeker
+				targetFunc: nav.getTarget
+				// trackingStage: trackingStage,
+				// projectiles: projectiles
+		}
+	*/
+
 	var Ship = function(props) { this.initialize(props); };
 	var p = Ship.prototype = new Container();
 	p.Container_initialize = p.initialize;
 
 	p.initialize = function(props) {
+
+		var app = props.app;
+
 		if (props) {
 
 			this.Container_initialize();
@@ -12,10 +49,11 @@
 			this.props = props;
 			this.props.ship = this;
 			
-			this.forceAbility = new ForceAbility(this);
+			this.forceAbility = new ForceAbility({app: app, target: this});
 			this.makeControls();
 			this.makeEngine();
 			this.makeSkin();
+			
 		}
 	};
 

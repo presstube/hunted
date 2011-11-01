@@ -1,4 +1,10 @@
 (function(window){
+
+	/*
+		props { 
+			host: host 
+		}
+	*/
 	
 	var ExhaustPipe = function(props) {this.initialize(props);};
 	var p = ExhaustPipe.prototype = new Container();
@@ -8,9 +14,7 @@
 		
 		this.Container_initialize();
 		
-		this.props = props || {};
-		
-		var ship = props.ship,
+		var host = props.host,
 			engaged = false,
 			frequency = 5,
 			index = 0,
@@ -23,8 +27,8 @@
 			this.tick = function() {
 				if (index % frequency === 0) {
 					new ExhaustParticle({
-						exhaustPipe : this,
-						ship : ship
+						exhaustPipe: this,
+						host: host
 					});
 				}
 				index++;

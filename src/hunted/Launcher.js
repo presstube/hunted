@@ -1,13 +1,24 @@
 (function(window){
+
+	/*
+		props { 
+			app: app
+			ship: the current ship, not the one in HuntedApp.. infact that should be changed to player or something.
+			projectileLimit: projectileLimit,
+			projectileThrust: projectileThrust 
+		}
+	*/
 	
 	var Launcher = function(props) { this.initialize(props); };
 	var p = Launcher.prototype = new Container();
 	p.Container_initialize = p.initialize;
 
 	p.initialize = function(props) {
+
 		this.Container_initialize();
 		
 		var _p = this.props = props || {},
+			app = _p.app,
 			skin = PTUtils.makeTriangle('#fff', 5, 5);
 
 			_p.projectileLimit = _p.projectileLimit || 10;
@@ -15,23 +26,26 @@
 		this.addChild(skin);
 		
 		this.launch = function() {
-			if (_p.projectiles.length < _p.projectileLimit) {
-				var projectile = this.makeProjectile();
-				var launchPos = this.localToLocal(0, 0, _p.ship.parent);
+			if (app.projectiles.length < _p.projectileLimit) {
+
+				var projectile = this.makeProjectile(),
+					launchPos = this.localToLocal(0, 0, _p.ship.parent),
+					adjProjThrust = _p.projectileThrust - (Math.random()*(_p.projectileThrust/4));
+
 				projectile.rotation = _p.ship.rotation + this.rotation;
 				projectile.x = launchPos.x;
 				projectile.y = launchPos.y;
-				_p.trackingStage.addChildAt(projectile, _p.trackingStage.getChildIndex(_p.ship));
+				app.trackingStage.addChildAt(projectile, app.trackingStage.getChildIndex(_p.ship));
 				projectile.addForce(_p.ship.getForce());
-				var adjProjThrust = _p.projectileThrust - (Math.random()*(_p.projectileThrust/4));
 				projectile.addForce(PTUtils.polarDegrees(adjProjThrust, projectile.rotation));
 				skin.y = +5;
-				_p.projectiles.push(projectile);
+				app.projectiles.push(projectile);
 				_.delay(killProjectile, 500, projectile);
 			}
 		};
 
-		// exposing this as a kind of ammo factory that can be overwritten from outside
+		// wire any factory or constructor into this as long as the object it produces has ForceAbility
+		// What about this can be 
 		this.makeProjectile = function() {
 
 			function makeShipProjectile() {
@@ -50,7 +64,7 @@
 
 			function makeDumbProjectile() {
 				var dp = PTUtils.makeTriangle('#ff0', 5, 5);
-				var dpForceAbility = new ForceAbility(dp);
+				var dpForceAbility = new ForceAbility({app: app, target: dp});
 				dp.tick = function() { dpForceAbility.update(); };
 
 				return dp;
@@ -62,8 +76,8 @@
 		};
 
 		function killProjectile(projectile) {
-			_p.trackingStage.removeChild(projectile);
-			_p.projectiles.splice(_.indexOf(_p.projectiles, projectile), 1);
+			app.trackingStage.removeChild(projectile);
+			app.projectiles.splice(_.indexOf(app.projectiles, projectile), 1);
 			// console.log("killing projectile");
 		}
 

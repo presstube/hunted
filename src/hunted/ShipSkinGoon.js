@@ -11,7 +11,7 @@
 			tailOrigin = 180,
 			tailSwingRange = 20,
 			tail = new Container(),
-			exhaustPipe = new ExhaustPipe(props),
+			exhaustPipe = new ExhaustPipe({host:props.ship}),
 			launcher = new Launcher(props);
 		
 		this.update = function() {

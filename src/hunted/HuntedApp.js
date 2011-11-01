@@ -2,86 +2,70 @@
 	
 	var HuntedApp = function() {
 
-		var	that = this,
-			gameState = "GAME_OVER",
-			numChasersToSpawn = 1,
-			paused = false,
-			wrapRadius = 3000,
-			chasers = [],
-			projectiles = [],
+		var	app = this,
 			canvas = document.getElementById("canvas"),
 			stage = new Stage(canvas),
 			fpsLabel = PTUtils.makeFPSLabel(),
 			scaleStage = new ScaleStage(),
 			trackingStage = new TrackingStage(),
 			nav = new Nav(scaleStage),
+			drag = 0.95,
+			wrapRadius = 3000,
+			boostFuelLimit = 40, // shouldnt be here
+			chasers = [],
+			projectiles = [],
+			
+			numChasersToSpawn = 1,
 			levelText = new Text("-- fps","bold 20px Arial","#FFF"),
-			fuelLimit = 40,
+			paused = false,
+			gameState = "GAME_OVER", // crappy
 
 			parallaxScroller = new ParallaxScroller({
-				app: this,
-				trackingStage : trackingStage,
+				app: app,
 				wrapRadius: wrapRadius,
 				nav: nav,
 				numItems: 50
 			}),
 
-			ship = new Ship({
+			player = new Ship({
+				app: app,
 				name: "hero",
 				controlsClass: ShipControlsKeyboard,
 				skinClass: ShipSkinGeneric,
-				drag: 0.95,
+				engineClass: ShipEngineGeneric,
+
+				// for the engine
 				thrustLimit: 2,
+				
+				// for the booster
 				boostThrust: 5,
-				boostFuelLimit: fuelLimit,
+				boostFuelLimit: boostFuelLimit,
 				boostRegenerateFrequency: 4,
+
+				// for the steering
 				steeringResponse: 2,
 				steeringLimit: 10,
+
+				// for the gun
 				launcherSpread: 5,
 				projectileThrust: 40,
 				shotsPerLaunch: 1,
 				projectileLife: 20,
 				projectileLimit: 200,
-				targetFunc: nav.getTarget,
-				trackingStage: trackingStage,
-				projectiles: projectiles
+
+				// for the heatseeker
+				targetFunc: nav.getTarget
 			}),
 
 			itemScroller = new ItemScroller({
-				app: this,
-				scaleStage: scaleStage,
-				trackingStage: trackingStage,
-				wrapRadius: wrapRadius,
+				app: app,
 				numItems: 20,
-				ship: ship
-			}),
+				wrapRadius: wrapRadius
+			});
 
-			mask = PTUtils.makeCircle('555', 500);
 
-			// avoider = new Ship({
-			// 	name: "avoider",
-			// 	controlsClass: ShipControlsAIAvoid,
-			// 	target: ship
-			// }),
-
-			// wanderer = new Ship({
-			// 	name: "wanderer",
-			// 	controlsClass: ShipControlsAIWander
-			// });
-
-		// var wandererSpawnPoint = PTUtils.polarDegrees(4000, Math.random()*360);
-		// wanderer.x = wandererSpawnPoint.x;
-		// wanderer.y = wandererSpawnPoint.y;
-
-		// trackingStage.addChild(avoider);
-		// trackingStage.addChild(wanderer);
-		
-		// parallaxScroller.props.target = wanderer;
-		// nav.setTarget(wanderer);
 
 		stage.addChild(fpsLabel, levelText, scaleStage);
-
-		mask.compositeOperation = "destination-atop";
 
 		levelText.x = 10; levelText.y = 40;
 
@@ -90,16 +74,18 @@
 		scaleStage.setScaleMultiplier(0.2);
 
 		trackingStage.addChild(itemScroller);
-		trackingStage.addChild(ship);
-		trackingStage.setTrackingTarget(ship);
+		trackingStage.addChild(player);
+		trackingStage.setTrackingTarget(player);
 
-		this.ship = ship;
+		this.stage = stage;
+		this.scaleStage = scaleStage;
+		this.trackingStage = trackingStage;
+		this.player = player;
 		this.chasers = chasers;
 		this.projectiles = projectiles;
-		this.trackingStage = trackingStage;
-		this.stage = stage;
+		this.drag = drag;
 
-		nav.setReference(ship);
+		nav.setReference(player);
 
 		nav.setTargetGroup(chasers);
 		
@@ -107,18 +93,22 @@
 		rigPauseKey();
 		resize();
 
-
 		start();
+
+
+
+
+
 
 
 		function setupTicker() {
 			Ticker.setFPS(30);
-			Ticker.addListener(that);
+			Ticker.addListener(app);
 			engageTick();
 		}
 
 		function engageTick() {
-			that.tick = function(){
+			app.tick = function(){
 				checkForHits();
 				stage.update();
 				// set scaleStage's setScaleMultiplier with nav's getDistMultiplier()
@@ -128,19 +118,18 @@
 					scaleStage.setScaleMultiplier(0.5);
 				}
 
+				// move stage back to 0,0 to compensate for Boost shudder
 				stage.x += (0 - stage.x) / 1.5;
 				stage.y += (0 - stage.y) / 1.5;
 			};
 		}
 
 		function disengageTick() { 
-			that.tick = undefined;
+			app.tick = undefined;
 		}
 
 		function start() {
 			gameState = "GAME_ON";
-			// _.each(chasers, function(chaser){ chaser.kill(); });
-			// chasers = [];
 			while (chasers.length > 0) {
 				chasers.pop().kill();
 			}
@@ -149,9 +138,9 @@
 			}
 			numChasersToSpawn = 1; // would kick you back to level 1
 			if (numChasersToSpawn > 1) numChasersToSpawn--;
-			trackingStage.addChild(ship);
+			trackingStage.addChild(player);
 			spawnChasers();
-			ship.skin.boost.setBoostFuel(fuelLimit);
+			player.skin.boost.setBoostFuel(boostFuelLimit);
 		}
 
 		function gameOver() {
@@ -172,18 +161,19 @@
 
 		function spawnChaser() {
 			var chaser = new Ship({
+				app: app,
 				name: "chaser: " + Math.random(),
 				controlsClass: ShipControlsAIChase,
 				skinClass: ShipSkinGoon,
-				thrustLimit: 4,
+				thrustLimit: 2.5,
 				steeringAccuracy: 10,
 				steeringLimit: 10,
-				target: ship
+				target: player
 			});
 			
 			var spawnPoint = PTUtils.polarDegrees(wrapRadius, Math.random()*360);
-			chaser.x = ship.x + spawnPoint.x;
-			chaser.y = ship.y + spawnPoint.y;
+			chaser.x = player.x + spawnPoint.x;
+			chaser.y = player.y + spawnPoint.y;
 			chasers.push(chaser);
 			trackingStage.addChild(chaser);
 		}
@@ -192,18 +182,18 @@
 
 			if (chasers.length > 0) {
 
-				// check chasers against ship for hit
+				// check chasers against player for hit
 
 				_.each(chasers, function(chaser) {
 					var globalLauncherPoint = chaser.launcher.localToGlobal(0, 0);
-					var globalShipPoint = ship.localToGlobal(0, 0);
+					var globalShipPoint = player.localToGlobal(0, 0);
 					var distToShip = PTUtils.distance(globalLauncherPoint, globalShipPoint);
 					
 					if (distToShip < 40) {
-						var localHitPoint = ship.globalToLocal(globalLauncherPoint.x, globalLauncherPoint.y);
-						var hit = ship.hitTest(localHitPoint.x, localHitPoint.y);
+						var localHitPoint = player.globalToLocal(globalLauncherPoint.x, globalLauncherPoint.y);
+						var hit = player.hitTest(localHitPoint.x, localHitPoint.y);
 						if (hit) {
-							ship.kill();
+							player.kill();
 							gameOver();
 						}
 					}
@@ -258,7 +248,7 @@
 				function pause() {
 					$(document).bind('keydown', 'space', onPauseSpacePressed);
 					console.log("PAUSE");
-					that.tick = undefined;
+					app.tick = undefined;
 					paused = true;
 				}
 
@@ -281,15 +271,17 @@
 			canvas.height = window.innerHeight;
 			scaleStage.x = canvas.width / 2;
 			scaleStage.y = canvas.height / 2; 
-			mask.x = canvas.width / 2;
-			mask.y = canvas.height / 2; 
 			stage.update();
 		}
 
 		window.onresize = resize;
-		window.sp = ship.props;
+		window.sp = player.props;
 		window.scaleStage = scaleStage;
 
+	};
+
+	HuntedApp.prototype.toString = function() {
+		return "[HuntedApp]";
 	};
 
 	window.HuntedApp = HuntedApp;

@@ -11,9 +11,6 @@
 			distMultiplier = 1,
 			ref = reference;
 
-
-
-
 		function setTarget(newTarget) {
 			target = newTarget;
 		}
@@ -62,17 +59,14 @@
 		}
 
 		function targetClosest() {
-			// console.log("tttt closet");
 
-			var closest, closestDist = 99999999999; // this could technically break the nav if dealing with big enough distances
+			var closest, closestDist = 99999999999; // dirty
 
-			// console.log("ref: " + ref);
 			_.each(targetGroup, function(target) {
 				var globalReferencePos = ref.localToGlobal(0,0);
 				var globalTargetPos = target.localToGlobal(0,0);
 				var localReferencePos = ref.globalToLocal(globalTargetPos.x, globalTargetPos.y);
 				var dist = PTUtils.distance(new Point(0, 0), localReferencePos);
-				// var dist = PTUtils.distance(globalReferencePos, globalTargetPos);
 				if (dist < closestDist) {
 					closestDist = dist;
 					closest = target;
@@ -83,11 +77,6 @@
 			if ( distMultiplier < 0 ) distMultiplier = 0;
 			if ( distMultiplier > 1 ) distMultiplier = 1;
 			distMultiplier = 1 - distMultiplier;
-
-
-			// console.log("closestDist: " + closestDist);
-			// console.log("distMultiplier: " + distMultiplier);
-			// console.log("range: " + range);
 
 			setTarget(closest);
 		}
@@ -101,14 +90,12 @@
 		}
 
 		Ticker.addListener(this);
+		
 		this.tick = function(){
 
 			if (navItems.length > 0) rotateNavItems();
 
-			// console.log("targetGroup: ", targetGroup);
-
 			if (targetGroup.length > 0) {
-				// console.log("tttt: " + targetGroup.length);
 				targetClosest();
 			}
 		};

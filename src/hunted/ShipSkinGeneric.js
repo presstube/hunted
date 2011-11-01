@@ -12,7 +12,7 @@
 			tailOrigin = 180,
 			tailSwingRange = 20,
 			tail = new Container(),
-			exhaustPipe = new ExhaustPipe(props),
+			exhaustPipe = new ExhaustPipe({host: props.ship}),
 			boost = new Boost(props),
 			launcher = new Launcher(props),
 			heatSeekerLauncher = new LauncherHeatSeeker(props),
@@ -47,7 +47,7 @@
 		// this.props.ship.launcher = launcher;
 
 		this.update = function() {
-			var controls = this.props.ship.controls;
+			var controls = _p.ship.controls;
 			
 			var tailDest;
 			if (controls.steering == 1) {

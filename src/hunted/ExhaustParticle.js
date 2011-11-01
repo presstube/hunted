@@ -1,4 +1,11 @@
 (function(window){
+
+	/*
+		props { 
+			exhaustPipe: this, 
+			host: host 
+		}
+	*/
 	
 	var ExhaustParticle = function(props) { this.initialize(props); };
 	var p = ExhaustParticle.prototype = new Container();
@@ -8,20 +15,17 @@
 		this.Container_initialize();
 		
 		var exhaustPipe = props.exhaustPipe,
-			ship = props.ship,
+			host = props.host,
 			exhaustPipeGlobal = exhaustPipe.localToGlobal(0,0),
-			shipParentLocal = ship.parent.globalToLocal(
-				exhaustPipeGlobal.x, 
-				exhaustPipeGlobal.y
-			),
+			hostParentLocal = host.parent.globalToLocal( exhaustPipeGlobal.x, exhaustPipeGlobal.y ),
 			skin = PTUtils.makeTriangle('fff', 4, 4);
 		
 		skin.rotation = 180;
 		this.addChild(skin);
-
-		this.x = shipParentLocal.x;
-		this.y = shipParentLocal.y;
-		this.rotation = ship.rotation;
+		this.x = hostParentLocal.x;
+		this.y = hostParentLocal.y;
+		this.rotation = host.rotation; // would be better if it got the concatenated rotation of the exhaustPipe not the host
+		host.parent.addChildAt(this, host.parent.getChildIndex(host));
 		
 		this.tick = function() {
 			this.alpha -= 0.05;
@@ -30,8 +34,8 @@
 				this.tick = null;
 			}
 		};
-		ship.parent.addChildAt(this, ship.parent.getChildIndex(ship));
 	};
+
 	window.ExhaustParticle = ExhaustParticle;
 
 }(window));
