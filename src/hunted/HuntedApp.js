@@ -63,8 +63,6 @@
 				wrapRadius: wrapRadius
 			});
 
-
-
 		stage.addChild(fpsLabel, levelText, scaleStage);
 
 		levelText.x = 10; levelText.y = 40;
