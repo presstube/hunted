@@ -10,8 +10,6 @@
 	
 	var ForceAbility = function(props) {
 
-		console.log("props.app: " + props.app);
-
 		var app = props.app,
 			target = props.target;
 
