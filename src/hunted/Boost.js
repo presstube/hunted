@@ -38,17 +38,11 @@
 				force = PTUtils.polarDegrees(_p.boostThrust/*mult*/, ship.rotation);
 				ship.addForce(force);
 				boostFuel--;
-<<<<<<< HEAD
 				var shudder = 5;
 				// app.stage.x += Math.random()*shudder*mult - Math.random()*shudder*mult;
 				// app.stage.y += Math.random()*shudder*mult - Math.random()*shudder*mult;
 				app.stage.x += Math.random()*shudder - Math.random()*shudder;
 				app.stage.y += Math.random()*shudder - Math.random()*shudder;
-=======
-				var shudder = 15;
-				app.stage.x += Math.random()*shudder*mult - Math.random()*shudder*mult;
-				app.stage.y += Math.random()*shudder*mult - Math.random()*shudder*mult;
->>>>>>> master
 				var boostChunk = PTUtils.makeTriangle('#fff', width*mult, width*mult);
 				boostChunk.x = ship.x;
 				boostChunk.y = ship.y;
@@ -65,11 +59,6 @@
 			tickCount++;
 
 			skin.scaleX = skin.scaleY = (boostFuel / _p.boostFuelLimit);
-<<<<<<< HEAD
-=======
-
-			// console.log('app: ' + window.app);
->>>>>>> master
 		};
 
 		this.setBoostFuel = function(fuel) {
