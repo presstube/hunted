@@ -59,27 +59,6 @@
 
 			mask = PTUtils.makeCircle('555', 500);
 
-			// avoider = new Ship({
-			// 	name: "avoider",
-			// 	controlsClass: ShipControlsAIAvoid,
-			// 	target: ship
-			// }),
-
-			// wanderer = new Ship({
-			// 	name: "wanderer",
-			// 	controlsClass: ShipControlsAIWander
-			// });
-
-		// var wandererSpawnPoint = PTUtils.polarDegrees(4000, Math.random()*360);
-		// wanderer.x = wandererSpawnPoint.x;
-		// wanderer.y = wandererSpawnPoint.y;
-
-		// trackingStage.addChild(avoider);
-		// trackingStage.addChild(wanderer);
-		
-		// parallaxScroller.props.target = wanderer;
-		// nav.setTarget(wanderer);
-
 		stage.addChild(fpsLabel, levelText, scaleStage);
 
 		mask.compositeOperation = "destination-atop";
