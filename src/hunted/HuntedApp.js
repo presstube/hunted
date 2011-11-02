@@ -38,7 +38,7 @@
 				thrustLimit: 2,
 				
 				// for the booster
-				boostThrust: 5,
+				boostThrust: 3,
 				boostFuelLimit: boostFuelLimit,
 				boostRegenerateFrequency: 4,
 
