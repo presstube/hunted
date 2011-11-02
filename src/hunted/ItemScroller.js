@@ -34,7 +34,7 @@
 				var item,
 					spawnPoint = PTUtils.polarDegrees(((Math.random()*(wrapRadius-500)))+500, Math.random() * 360);
 
-				item = new GravityWellRepelBubble({app: app});
+				item = new Bubble({app: app, name: Math.random()});
 				item.x = spawnPoint.x;
 				item.y = spawnPoint.y;
 				items.push(item);
@@ -62,6 +62,10 @@
 					item.y = localScaleStageCenter.y + respawnPoint.y;
 				}
 			}
+		};
+
+		this.getItems = function() {
+			return items;	
 		};
 	};
 

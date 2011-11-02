@@ -20,6 +20,13 @@
 		drawCircle(0, 0, radius);
 		return triangle;
 	};
+
+	PTUtils.makeRect = function(color, x, y, w, h) {
+		var rect = new Shape();
+		rect.graphics.beginFill(color).
+		drawRect(x, y, w, h);
+		return rect;
+	};
 		
 
 	PTUtils.populateBits = function(container, numBits) {

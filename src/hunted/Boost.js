@@ -15,22 +15,25 @@
 
 	p.initialize = function(props) {
 
+		this.Container_initialize();
+
 		var _p = props;
 
 		_p.boostThrust = _p.boostThrust || 5;
 		_p.boostFuelLimit = _p.boostFuelLimit || 20;
 		_p.boostRegenerateFrequency = _p.boostRegenerateFrequency || 5;
 
-		var boostFuel = _p.boostFuelLimit,
+		var boost = this,
+			boostFuel = _p.boostFuelLimit,
 			width = 20,
-			skin = PTUtils.makeTriangle("fff", width, width),
+			skin,
 			ship = _p.ship,
 			controls = ship.controls,
 			tickCount = 0,
-			force = new Point();
+			force = new Point(),
+			name = Math.random();
 
-		skin.y = -10;
-		this.addChild(skin);
+		setSkin(PTUtils.makeTriangle("fff", width, width));
 
 		this.tick = function() {
 			if(controls.boost && boostFuel > 0) { 
@@ -43,7 +46,8 @@
 				// app.stage.y += Math.random()*shudder*mult - Math.random()*shudder*mult;
 				app.stage.x += Math.random()*shudder - Math.random()*shudder;
 				app.stage.y += Math.random()*shudder - Math.random()*shudder;
-				var boostChunk = PTUtils.makeTriangle('#fff', width*mult, width*mult);
+				var boostChunk = skin.clone();
+				// var boostChunk = PTUtils.makeTriangle('#fff', width*mult, width*mult);
 				boostChunk.x = ship.x;
 				boostChunk.y = ship.y;
 				boostChunk.rotation = ship.rotation;
@@ -57,12 +61,23 @@
 				}
 			}
 			tickCount++;
-
-			skin.scaleX = skin.scaleY = (boostFuel / _p.boostFuelLimit);
+			// skin.scaleX = 
+			skin.scaleY = (boostFuel / _p.boostFuelLimit);
 		};
 
 		this.setBoostFuel = function(fuel) {
 			boostFuel = fuel;
+		};
+
+		function setSkin(newSkin) {
+			if(skin) boost.removeChild(skin);
+			boost.addChild(skin = newSkin);
+		}
+
+		this.setSkin = setSkin;
+
+		this.kill = function() {
+				
 		};
 			
 	};

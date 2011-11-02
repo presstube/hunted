@@ -77,12 +77,20 @@
 	};
 
 	p.makeSkin = function() {
-		if ( this.props.skinClass){
-			this.skin = new this.props.skinClass(this.props);
+		if (this.props.skinClass){
+			this.setSkin(new this.props.skinClass(this.props));
+			// this.skin = new this.props.skinClass(this.props);
 		} else {
-			this.skin = new ShipSkinGeneric(this.props);
+			this.setSkin(new ShipSkinGeneric(this.props));
+			// this.skin = new ShipSkinGeneric(this.props);
 		}
 		this.addChild(this.skin);
+	};
+
+	p.setSkin = function(newSkin) {
+		if (this.skin) this.skin.kill();
+		this.skin = newSkin;
+		this.addChild(newSkin);
 	};
 
 	p.kill = function() {
