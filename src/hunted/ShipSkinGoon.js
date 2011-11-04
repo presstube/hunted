@@ -14,6 +14,17 @@
 			exhaustPipe = new ExhaustPipe({host:props.ship}),
 			launcher = new Launcher(props);
 		
+		_p.ship.launcher = launcher;
+		this.addChild(PTUtils.makeTriangle('#F00', 40, 40));
+		tail.addChild(PTUtils.makeTriangle('#f00', 20, 20));
+		tail.y = -4;
+		tail.rotation = 180;
+		this.addChild(tail);
+		tail.addChild(exhaustPipe);
+		exhaustPipe.y = -16;
+		this.addChild(launcher);
+		launcher.y = -40;
+		
 		this.update = function() {
 			var controls = _p.ship.controls;
 			
@@ -33,17 +44,11 @@
 				exhaustPipe.engage();
 			}
 		};
-		
-		_p.ship.launcher = launcher;
-		this.addChild(PTUtils.makeTriangle('#F00', 40, 40));
-		tail.addChild(PTUtils.makeTriangle('#f00', 20, 20));
-		tail.y = -4;
-		tail.rotation = 180;
-		this.addChild(tail);
-		tail.addChild(exhaustPipe);
-		exhaustPipe.y = -16;
-		this.addChild(launcher);
-		launcher.y = -40;
+
+		this.kill = function() {
+			props = null;
+			if (this.parent) this.parent.removeChild(this);
+		};
 	};
 
 	window.ShipSkinGoon = ShipSkinGoon;

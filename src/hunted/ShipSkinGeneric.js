@@ -18,13 +18,10 @@
 			heatSeekerLauncher = new LauncherHeatSeeker(props),
 			peePants = new LauncherPeePants(props);
 
-		// defaults
 		_p.launcherSpread = _p.launcherSpread || 20;
 		_p.shotsPerLaunch = _p.shotsPerLaunch || 3;
 
 		this.addChild(PTUtils.makeTriangle('#222', 40, 40));
-
-
 		tail.addChild(PTUtils.makeTriangle('#222', 20, 20));
 		tail.y = -4;
 		tail.rotation = 180;
@@ -41,10 +38,10 @@
 		this.addChild(peePants);
 		peePants.y = -40;
 
-		boost.y = 5;
+		// boost.y = 5;
 		this.addChild(boost);
 
-		// this.props.ship.launcher = launcher;
+		this.boost = boost;
 
 		this.update = function() {
 			var controls = _p.ship.controls;
@@ -83,7 +80,11 @@
 			}
 		};
 
-		this.boost = boost;
+		this.kill = function() {
+			// props = null;
+			if (this.parent) this.parent.removeChild(this);
+		};
+
 	};
 
 	window.ShipSkinGeneric = ShipSkinGeneric;

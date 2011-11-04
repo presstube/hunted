@@ -6,15 +6,21 @@
 		}
 	*/
 	
-	var GravityWellRepelBubble = function(props) {this.initialize(props);};
-	var p = GravityWellRepelBubble.prototype = new Container();
+	var Bubble = function(props) {this.initialize(props);};
+	var p = Bubble.prototype = new Container();
 	p.Container_initialize = p.initialize;
 
 	p.initialize = function(props) {
 		this.Container_initialize();
 
+		var _p = this.props = props;
+
+		Bubble.VACATED = "VACATED";
+		Bubble.OCCUPIED = "OCCUPIED";
+
 		var gravityWell = this,
 			app = props.app,
+			state = Bubble.VACATED,
 			maxPushPerimeter = 300,
 			minPushPerimeter = 150, 
 			multPushPerimeter = maxPushPerimeter - minPushPerimeter,
@@ -29,12 +35,33 @@
 
 			playerDist = 0;
 
-		this.addChild(PTUtils.makeCircle('#FFF', maxPushPerimeter));
+		_.extend(this, Backbone.Events);
+
+		// this.bind(Bubble.VACATED, function(msg) { console.log("VACATED: " + msg); });
+		// this.bind(Bubble.OCCUPIED, function(msg) { console.log("OCCUPIED: " + msg); });
+
+		var outer = PTUtils.makeCircle('#FFF', maxPushPerimeter);
+		outer.alpha = 0.2;
+
+		this.addChild(outer);
 		this.addChild(PTUtils.makeCircle('#FFF', minPushPerimeter));
 
-		this.alpha = 0.2;
+		this.alpha = 0.1;
 
 		// there is some ugliness here that needs to be sorted, perhaps a register/unregisterTarget(target)
+
+		function setState(newState) {
+
+			state = newState;
+
+			if (state === Bubble.VACATED) {
+				gravityWell.trigger(Bubble.VACATED, gravityWell);
+				
+			} else if (state === Bubble.OCCUPIED) {
+				gravityWell.trigger(Bubble.OCCUPIED, gravityWell);
+				
+			}
+		}
 
 		this.tick = function() {
 			var globalTargetPos = app.player.localToGlobal(0,0);
@@ -62,6 +89,7 @@
 			}
 
 			if (dist < maxPullPerimeter) {
+				if (state === Bubble.VACATED && target === app.player) { setState(Bubble.OCCUPIED); }
 				multPullPerimeter = (dist - minPullPerimeter)/(maxPullPerimeter - minPullPerimeter);
 				multPullPerimeter = (multPullPerimeter>maxPullPerimeter) ? maxPullPerimeter : multPullPerimeter;
 				multPullPerimeter = (multPullPerimeter<0) ? 0 : multPullPerimeter;
@@ -70,6 +98,7 @@
 				target.addForce(PTUtils.polarDegrees(force, degrees));
 
 			} else if (dist < maxPushPerimeter) {
+				if (state === Bubble.OCCUPIED  && target === app.player) { setState(Bubble.VACATED); }
 				multPushPerimeter = (dist - minPushPerimeter)/(maxPushPerimeter - minPushPerimeter);
 				multPushPerimeter = (multPushPerimeter>maxPushPerimeter) ? maxPushPerimeter : multPushPerimeter;
 				multPushPerimeter = (multPushPerimeter<0) ? 0 : multPushPerimeter;
@@ -80,6 +109,11 @@
 		}
 	};
 
-	window.GravityWellRepelBubble = GravityWellRepelBubble;
+	Bubble.prototype.toString = function() {
+		return "[Bubble]"; 
+	};
+
+
+	window.Bubble = Bubble;
 
 }(window));

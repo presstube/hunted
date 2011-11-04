@@ -9,9 +9,10 @@
 			scaleStage = new ScaleStage(),
 			trackingStage = new TrackingStage(),
 			nav = new Nav(scaleStage),
+			venn = new Venn({app: app}),
 			drag = 0.95,
 			wrapRadius = 3000,
-			boostFuelLimit = 40, // shouldnt be here
+			boostFuelLimit = 20, // shouldnt be here
 			chasers = [],
 			projectiles = [],
 			
@@ -27,10 +28,12 @@
 				numItems: 50
 			}),
 
+
 			player = new Ship({
 				app: app,
-				name: "hero",
+				name: "player",
 				controlsClass: ShipControlsKeyboard,
+				// skinClass: ShipSkinBee,
 				skinClass: ShipSkinGeneric,
 				engineClass: ShipEngineGeneric,
 
@@ -63,6 +66,9 @@
 				wrapRadius: wrapRadius
 			});
 
+
+		
+
 		stage.addChild(fpsLabel, levelText, scaleStage);
 
 		levelText.x = 10; levelText.y = 40;
@@ -90,6 +96,8 @@
 		setupTicker();
 		rigPauseKey();
 		resize();
+
+		venn.addGroup(itemScroller.getItems());
 
 		start();
 
@@ -136,9 +144,10 @@
 			}
 			numChasersToSpawn = 1; // would kick you back to level 1
 			if (numChasersToSpawn > 1) numChasersToSpawn--;
+			player.setSkin(new ShipSkinGeneric(player.props));
 			trackingStage.addChild(player);
 			spawnChasers();
-			player.skin.boost.setBoostFuel(boostFuelLimit);
+			// player.skin.boost.setBoostFuel(boostFuelLimit);
 		}
 
 		function gameOver() {
