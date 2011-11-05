@@ -25,7 +25,7 @@
 
 		this.tick = function() {
 			checkTarget(app.ship);
-			_.each(app.chasers, function(chaser) {
+			_.each(app.getChasers(), function(chaser) {
 				checkTarget(chaser);
 			});
 			_.each(app.projectiles, function(projectile){

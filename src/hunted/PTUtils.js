@@ -93,6 +93,10 @@
 		return rotation;
 	};
 
+	PTUtils.addPoints = function(pointA, pointB) {
+		return new Point(pointA.x + pointB.x, pointA.y + pointB.y);
+	};
+
 	window.PTUtils = PTUtils;
 	
 }(window));

@@ -2,13 +2,18 @@
 	
 	var HuntedApp = function() {
 
+		// all this instantiation in one go here is stupid. split it up.
+		// it causes things like for instance on like 14 when you are passing app into that new Nav object
+		// that nav in its constructor can't pull any values from app b/c app hasn't finished constructing itself yet.
+		// like if Nav calls app.scaleStage, it will be undefined.
+
 		var	app = this,
 			canvas = document.getElementById("canvas"),
 			stage = new Stage(canvas),
 			fpsLabel = PTUtils.makeFPSLabel(),
 			scaleStage = new ScaleStage(),
 			trackingStage = new TrackingStage(),
-			nav = new Nav(scaleStage),
+			nav = new Nav({app: app}),
 			venn = new Venn({app: app}),
 			drag = 0.95,
 			wrapRadius = 3000,
@@ -54,10 +59,7 @@
 				projectileThrust: 40,
 				shotsPerLaunch: 1,
 				projectileLife: 20,
-				projectileLimit: 200,
-
-				// for the heatseeker
-				targetFunc: nav.getTarget
+				projectileLimit: 200
 			}),
 
 			itemScroller = new ItemScroller({
@@ -66,21 +68,27 @@
 				wrapRadius: wrapRadius
 			});
 
-
-		
-
 		stage.addChild(fpsLabel, levelText, scaleStage);
 
 		levelText.x = 10; levelText.y = 40;
 
 		scaleStage.addChild(trackingStage);
 		scaleStage.addChildAt(parallaxScroller, 0);
-		scaleStage.setScaleMultiplier(0.2);
+		scaleStage.setScaleMultiplier(0.3);
 
 		trackingStage.addChild(itemScroller);
 		trackingStage.addChild(player);
 		trackingStage.setTrackingTarget(player);
 
+
+		// this is bullshit
+		// on line 234 you are performing a destructive operation on chasers ( chasers = _.without(chasers, chaser))
+		// anyone object who is referencing app.chasers will only be looking at the chasers array referenced here 
+		// that was first referenced here, not the newly created one.
+
+		// you should either ditch private vars for all these guys alltogether
+		// or you should create proper getters for them.. exposing them like this isn't good.
+		
 		this.stage = stage;
 		this.scaleStage = scaleStage;
 		this.trackingStage = trackingStage;
@@ -89,9 +97,10 @@
 		this.projectiles = projectiles;
 		this.drag = drag;
 
-		nav.setReference(player);
+		// this is how it should be
 
-		nav.setTargetGroup(chasers);
+		this.getChasers = function() { return chasers; };
+		this.getProjectiles = function() { return projectiles; };
 		
 		setupTicker();
 		rigPauseKey();
@@ -118,11 +127,11 @@
 				checkForHits();
 				stage.update();
 				// set scaleStage's setScaleMultiplier with nav's getDistMultiplier()
-				if (gameState == "GAME_ON") {
-					scaleStage.setScaleMultiplier(nav.getDistMultiplier());
-				} else {
-					scaleStage.setScaleMultiplier(0.5);
-				}
+				// if (gameState == "GAME_ON") {
+				// 	scaleStage.setScaleMultiplier(nav.getDistMultiplier());
+				// } else {
+				// 	scaleStage.setScaleMultiplier(0.5);
+				// }
 
 				// move stage back to 0,0 to compensate for Boost shudder
 				stage.x += (0 - stage.x) / 1.5;
@@ -216,25 +225,20 @@
 							var hit = chaser.hitTest(localHitPoint.x, localHitPoint.y);
 							if (hit) {
 
-								var k;
-
 								trackingStage.removeChild(projectile);
-								for (k = 0; k < projectiles.length; k++) {
-									if (projectile === projectiles[k]) {
-										projectiles.splice(k, 1);
-									}
-								}
+								projectiles = _.without(projectiles, projectile);
 
 								trackingStage.removeChild(chaser);
-								for (k = 0; k < chasers.length; k++) {
-									if (chaser === chasers[k]) {
-										chasers.splice(k, 1);
-									}
-								}
+								chasers = _.without(chasers, chaser);
 
-								if (chasers.length === 0) {
-									spawnChasers();
-								}
+								// var splat = new Splat({app: app, force: chaser.getForce()});
+								var splat = new Splat({app: app, force: PTUtils.addPoints(chaser.getForce(), projectile.getForce())});
+								splat.x = chaser.x;
+								splat.y = chaser.y;
+								trackingStage.addChild(splat);
+
+								if (chasers.length === 0) spawnChasers();
+
 							}
 						}
 

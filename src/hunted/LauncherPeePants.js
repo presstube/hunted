@@ -24,7 +24,7 @@
 		};
 
 		function fire() {
-			if (_p.projectiles.length < _p.projectileLimit) {
+			if (_p.app.getProjectiles().length < _p.projectileLimit) {
 				// that.rotation = 90;
 				that.rotation = Math.random()*spread - Math.random()*spread;
 				var projectile = that.makeProjectile();
@@ -37,7 +37,7 @@
 				var adjProjThrust = _p.projectileThrust - (Math.random()*(_p.projectileThrust/4));
 				projectile.addForce(PTUtils.polarDegrees(adjProjThrust, _p.ship.rotation + that.rotation));
 				skin.y = +5;
-				_p.projectiles.push(projectile);
+				_p.app.getProjectiles().push(projectile);
 				_.delay(killProjectile, ammoLifeSpan, projectile);
 				// that.rotation = 0;
 			}
@@ -78,7 +78,7 @@
 
 		function killProjectile(projectile) {
 			_p.trackingStage.removeChild(projectile);
-			_p.projectiles.splice(_.indexOf(_p.projectiles, projectile), 1);
+			_p.app.getProjectiles().splice(_.indexOf(_p.app.getProjectiles(), projectile), 1);
 			// console.log("killing projectile");
 		}
 

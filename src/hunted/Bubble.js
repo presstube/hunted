@@ -70,12 +70,12 @@
 
 			// would be good if targets were added and removed via an api instead of hard coded like this
 
-			_.each(app.chasers, function(chaser) {
+			_.each(app.getChasers(), function(chaser) {
 				checkTarget(chaser);
 			});
 			if (playerDist < 800) { // if the player is close enough check the projectiles too, otherwise it become too heavy
 				checkTarget(app.player, playerDist);
-				_.each(app.projectiles, function(projectile){
+				_.each(app.getProjectiles(), function(projectile){
 					checkTarget(projectile);
 				});
 			}

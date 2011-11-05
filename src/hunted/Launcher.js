@@ -26,7 +26,7 @@
 		this.addChild(skin);
 		
 		this.launch = function() {
-			if (app.projectiles.length < _p.projectileLimit) {
+			if (app.getProjectiles().length < _p.projectileLimit) {
 
 				var projectile = this.makeProjectile(),
 					launchPos = this.localToLocal(0, 0, _p.ship.parent),
@@ -39,7 +39,7 @@
 				projectile.addForce(_p.ship.getForce());
 				projectile.addForce(PTUtils.polarDegrees(adjProjThrust, projectile.rotation));
 				skin.y = +5;
-				app.projectiles.push(projectile);
+				app.getProjectiles().push(projectile);
 				_.delay(killProjectile, 500, projectile);
 			}
 		};
@@ -64,7 +64,7 @@
 
 			function makeDumbProjectile() {
 				var dp = PTUtils.makeTriangle('#ff0', 5, 5);
-				var dpForceAbility = new ForceAbility({app: app, target: dp});
+				var dpForceAbility = new ForceAbility({target: dp, app: app});
 				dp.tick = function() { dpForceAbility.update(); };
 
 				return dp;
@@ -77,7 +77,10 @@
 
 		function killProjectile(projectile) {
 			app.trackingStage.removeChild(projectile);
-			app.projectiles.splice(_.indexOf(app.projectiles, projectile), 1);
+			var projectiles = app.getProjectiles();
+			projectiles.splice(_.indexOf(projectiles, projectile), 1);
+			// vs
+			// projectiles = _.without(projectiles, projectile);
 			// console.log("killing projectile");
 		}
 

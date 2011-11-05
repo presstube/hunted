@@ -1,6 +1,14 @@
 (function(window){
+
+	// this is kind of crappily hard-coded and not thought out well.
 	
-	var Nav = function(reference) {
+	/*
+		props { 
+			app: app,
+		}
+	*/
+
+	var Nav = function(props) {
 
 		var target, 
 			targetGroup = [],
@@ -8,8 +16,7 @@
 			maxPerimeter = 1200,
 			minPerimeter = 400,
 			range = maxPerimeter - minPerimeter,
-			distMultiplier = 1,
-			ref = reference;
+			distMultiplier = 1;
 
 		function setTarget(newTarget) {
 			target = newTarget;
@@ -62,10 +69,10 @@
 
 			var closest, closestDist = 99999999999; // dirty
 
-			_.each(targetGroup, function(target) {
-				var globalReferencePos = ref.localToGlobal(0,0);
+			_.each(props.app.getChasers(), function(target) {
+				var globalReferencePos = props.app.scaleStage.localToGlobal(0,0);
 				var globalTargetPos = target.localToGlobal(0,0);
-				var localReferencePos = ref.globalToLocal(globalTargetPos.x, globalTargetPos.y);
+				var localReferencePos = props.app.scaleStage.globalToLocal(globalTargetPos.x, globalTargetPos.y);
 				var dist = PTUtils.distance(new Point(0, 0), localReferencePos);
 				if (dist < closestDist) {
 					closestDist = dist;
@@ -95,12 +102,10 @@
 
 			if (navItems.length > 0) rotateNavItems();
 
-			if (targetGroup.length > 0) {
+			if (props.app.chasers.length > 0) {
 				targetClosest();
 			}
 		};
-
-
 
 		// api
 		this.setTarget = setTarget;
