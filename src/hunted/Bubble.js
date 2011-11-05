@@ -58,6 +58,7 @@
 				gravityWell.trigger(Bubble.VACATED, gravityWell);
 				
 			} else if (state === Bubble.OCCUPIED) {
+				app.player.skin.setBoostFuel(app.player.props.boostFuelLimit);
 				gravityWell.trigger(Bubble.OCCUPIED, gravityWell);
 				
 			}

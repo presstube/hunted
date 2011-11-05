@@ -80,6 +80,10 @@
 			}
 		};
 
+		this.setBoostFuel = function(boostFuel) {
+			boost.setBoostFuel(boostFuel);	
+		};
+
 		this.kill = function() {
 			// props = null;
 			if (this.parent) this.parent.removeChild(this);

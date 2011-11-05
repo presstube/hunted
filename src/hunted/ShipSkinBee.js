@@ -91,6 +91,11 @@
 			}
 		};
 
+		this.setBoostFuel = function(boostFuel) {
+			leftBoost.setBoostFuel(boostFuel);	
+			rightBoost.setBoostFuel(boostFuel);	
+		};
+
 		this.kill = function() {
 			// props = null;
 			if (this.parent) this.parent.removeChild(this);
