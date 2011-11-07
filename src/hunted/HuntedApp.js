@@ -74,7 +74,7 @@
 
 		scaleStage.addChild(trackingStage);
 		scaleStage.addChildAt(parallaxScroller, 0);
-		scaleStage.setScaleMultiplier(0.3);
+		scaleStage.setScaleMultiplier(0.5);
 
 		trackingStage.addChild(itemScroller);
 		trackingStage.addChild(player);

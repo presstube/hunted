@@ -16,14 +16,14 @@
 
 		var splat = this;
 
-		for(var i = 0; i < 10; i++) {
+		for(var i = 0; i < 20; i++) {
 			makeChunk(i);
 		}
 
 		function makeChunk(i) {
 			var chunk = PTUtils.makeTriangle("#f00", 10, 10);
 			var chunkForceAbility = new ForceAbility({target: chunk, app: app});
-			chunk.addForce(PTUtils.polarDegrees(Math.random()*10, Math.random()*360));
+			chunk.addForce(PTUtils.polarDegrees(Math.random()*50, Math.random()*360));
 			chunk.addForce(props.force);
 			chunk.rotAmount = Math.random()*5 - Math.random()*5;
 			chunk.tick = function() { 
@@ -39,8 +39,6 @@
 		}, 1000);
 
 	};
-
-
 
 	window.Splat = Splat;
 
