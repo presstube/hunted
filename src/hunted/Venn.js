@@ -24,7 +24,7 @@
 
 		function trigger(level) {
 			console.log("!!VENN: " + occupied.length + "!!");
-			player = props.app.player;
+			player = props.app.getPlayer();
 			if (level === 2) player.setSkin(new ShipSkinBee(player.props));
 		}
 

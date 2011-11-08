@@ -58,14 +58,16 @@
 				gravityWell.trigger(Bubble.VACATED, gravityWell);
 				
 			} else if (state === Bubble.OCCUPIED) {
-				app.player.skin.setBoostFuel(app.player.props.boostFuelLimit);
+				var player = app.getPlayer();
+				player.skin.setBoostFuel(player.props.boostFuelLimit);
 				gravityWell.trigger(Bubble.OCCUPIED, gravityWell);
 				
 			}
 		}
 
 		this.tick = function() {
-			var globalTargetPos = app.player.localToGlobal(0,0);
+			var player = app.getPlayer();
+			var globalTargetPos = player.localToGlobal(0,0);
 			playerDist = PTUtils.distance(new Point(0, 0), gravityWell.globalToLocal(globalTargetPos.x, globalTargetPos.y));
 
 			// would be good if targets were added and removed via an api instead of hard coded like this
@@ -74,7 +76,7 @@
 				checkTarget(chaser);
 			});
 			if (playerDist < 800) { // if the player is close enough check the projectiles too, otherwise it become too heavy
-				checkTarget(app.player, playerDist);
+				checkTarget(player, playerDist);
 				_.each(app.getProjectiles(), function(projectile){
 					checkTarget(projectile);
 				});
@@ -82,7 +84,7 @@
 		};
 
 		function checkTarget(target, dist) {
-			var force, degrees;
+			var force, degrees, player = app.getPlayer();
 				
 			if (!dist) {
 				var globalTargetPos = target.localToGlobal(0,0);
@@ -90,7 +92,7 @@
 			}
 
 			if (dist < maxPullPerimeter) {
-				if (state === Bubble.VACATED && target === app.player) { setState(Bubble.OCCUPIED); }
+				if (state === Bubble.VACATED && target === player) { setState(Bubble.OCCUPIED); }
 				multPullPerimeter = (dist - minPullPerimeter)/(maxPullPerimeter - minPullPerimeter);
 				multPullPerimeter = (multPullPerimeter>maxPullPerimeter) ? maxPullPerimeter : multPullPerimeter;
 				multPullPerimeter = (multPullPerimeter<0) ? 0 : multPullPerimeter;
@@ -99,7 +101,7 @@
 				target.addForce(PTUtils.polarDegrees(force, degrees));
 
 			} else if (dist < maxPushPerimeter) {
-				if (state === Bubble.OCCUPIED  && target === app.player) { setState(Bubble.VACATED); }
+				if (state === Bubble.OCCUPIED  && target === player) { setState(Bubble.VACATED); }
 				multPushPerimeter = (dist - minPushPerimeter)/(maxPushPerimeter - minPushPerimeter);
 				multPushPerimeter = (multPushPerimeter>maxPushPerimeter) ? maxPushPerimeter : multPushPerimeter;
 				multPushPerimeter = (multPushPerimeter<0) ? 0 : multPushPerimeter;

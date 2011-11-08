@@ -79,26 +79,15 @@
 		trackingStage.addChild(itemScroller);
 		trackingStage.addChild(player);
 		trackingStage.setTrackingTarget(player);
-
-
-		// this is bullshit
-		// on line 234 you are performing a destructive operation on chasers ( chasers = _.without(chasers, chaser))
-		// anyone object who is referencing app.chasers will only be looking at the chasers array referenced here 
-		// that was first referenced here, not the newly created one.
-
-		// you should either ditch private vars for all these guys alltogether
-		// or you should create proper getters for them.. exposing them like this isn't good.
 		
+		// because these objects are permanent its ok, at least for now.
 		this.stage = stage;
 		this.scaleStage = scaleStage;
 		this.trackingStage = trackingStage;
-		this.player = player;
-		this.chasers = chasers;
-		this.projectiles = projectiles;
 		this.drag = drag;
-
-		// this is how it should be
-
+		
+		// this is how it should be for impermanent objects
+		this.getPlayer = function() { return player; };
 		this.getChasers = function() { return chasers; };
 		this.getProjectiles = function() { return projectiles; };
 		
@@ -127,11 +116,11 @@
 				checkForHits();
 				stage.update();
 				// set scaleStage's setScaleMultiplier with nav's getDistMultiplier()
-				// if (gameState == "GAME_ON") {
-				// 	scaleStage.setScaleMultiplier(nav.getDistMultiplier());
-				// } else {
-				// 	scaleStage.setScaleMultiplier(0.5);
-				// }
+				if (gameState == "GAME_ON") {
+					scaleStage.setScaleMultiplier(nav.getDistMultiplier());
+				} else {
+					scaleStage.setScaleMultiplier(0.5);
+				}
 
 				// move stage back to 0,0 to compensate for Boost shudder
 				stage.x += (0 - stage.x) / 1.5;

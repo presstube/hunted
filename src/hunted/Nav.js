@@ -102,7 +102,7 @@
 
 			if (navItems.length > 0) rotateNavItems();
 
-			if (props.app.chasers.length > 0) {
+			if (props.app.getChasers().length > 0) {
 				targetClosest();
 			}
 		};
