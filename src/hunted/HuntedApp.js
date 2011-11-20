@@ -7,6 +7,8 @@
 		// that nav in its constructor can't pull any values from app b/c app hasn't finished constructing itself yet.
 		// like if Nav calls app.scaleStage, it will be undefined.
 
+		console.log("lalalala");
+
 		var	app = this,
 			canvas = document.getElementById("canvas"),
 			stage = new Stage(canvas),
